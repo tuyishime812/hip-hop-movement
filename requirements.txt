@@ -1,0 +1,16 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+pydantic[email]==2.10.3
+pydantic-settings==2.7.0
+passlib[bcrypt]==1.7.4
+python-jose[cryptography]==3.3.0
+python-multipart==0.0.20
+python-dotenv==1.0.1
+asyncpg==0.31.0
+alembic==1.14.0
+aiofiles==23.2.1
+cryptography==43.0.3
+requests==2.32.3
+Pillow==11.1.0
+feedparser==6.0.11
