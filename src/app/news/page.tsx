@@ -16,6 +16,8 @@ interface RSSItem {
   categories?: string[];
   isoDate?: string;
   source?: string;
+  source_name?: string;  // Added to match API response
+  pub_date?: string;     // Added to match API response
 }
 
 const NewsPage = () => {
