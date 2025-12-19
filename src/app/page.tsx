@@ -1187,71 +1187,7 @@ const HipHopCultureSection = () => {
           </div>
         </div>
 
-        {/* Interactive Timeline of Hip-Hop History */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold text-center mb-10 text-gray-800 dark:text-slate-100">Hip-Hop Through the Decades</h3>
-          <div className="relative">
-            {/* Vertical timeline */}
-            <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-[#3b82f6] to-[#ec4899]"></div>
 
-              {/* Timeline events */}
-              <div className="space-y-12">
-                {[
-                  { year: "1973", event: "DJ Kool Herc's block party in Bronx", desc: "The birth of Hip-Hop culture" },
-                  { year: "1979", event: "First recorded Hip-Hop songs", desc: "Rapper's Delight by Sugarhill Gang" },
-                  { year: "1980s", event: "Golden Age begins", desc: "Diversification of styles and themes" },
-                  { year: "1990s", event: "Mainstream breakthrough", desc: "Hip-Hop becomes global phenomenon" },
-                  { year: "2000s", event: "Commercial peak", desc: "Digital revolution in music" },
-                  { year: "Today", event: "Global movement", desc: "Hip-Hop as cultural force worldwide" }
-                ].map((item, index) => (
-                  <div key={index} className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
-                    <div className={`w-1/2 p-4 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
-                      <div className="bg-white p-4 rounded-lg shadow-md dark:bg-slate-700">
-                        <h4 className="font-bold text-lg text-[#3b82f6] dark:text-[#93c5fd]">{item.year}</h4>
-                        <h5 className="font-semibold mb-1">{item.event}</h5>
-                        <p className="text-sm text-gray-600 dark:text-slate-300">{item.desc}</p>
-                      </div>
-                    </div>
-                    <div className="relative z-10 flex items-center justify-center w-10 h-10 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] rounded-full">
-                      <div className="w-4 h-4 bg-white rounded-full"></div>
-                    </div>
-                    <div className="w-1/2"></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Stories Section */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold text-center mb-10 text-gray-800 dark:text-slate-100">Our Impact Stories</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-xl shadow-md dark:bg-slate-700">
-              <div className="text-[#3b82f6] text-3xl mb-3">🌟</div>
-              <h4 className="font-bold text-lg mb-2 text-gray-800 dark:text-slate-100">Youth Empowerment</h4>
-              <p className="text-gray-600 dark:text-slate-300">
-                Through our music and art programs, we've helped over 500 young people find their voice and express themselves positively.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-md dark:bg-slate-700">
-              <div className="text-[#3b82f6] text-3xl mb-3">🤝</div>
-              <h4 className="font-bold text-lg mb-2 text-gray-800 dark:text-slate-100">Community Connection</h4>
-              <p className="text-gray-600 dark:text-slate-300">
-                Our events have brought together diverse communities, fostering understanding and unity through the power of Hip-Hop culture.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-md dark:bg-slate-700">
-              <div className="text-[#3b82f6] text-3xl mb-3">🚀</div>
-              <h4 className="font-bold text-lg mb-2 text-gray-800 dark:text-slate-100">Artist Development</h4>
-              <p className="text-gray-600 dark:text-slate-300">
-                We've provided mentorship and resources to emerging artists, helping them navigate the music industry and build sustainable careers.
-              </p>
-            </div>
-          </div>
-        </div>
 
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-2xl border border-gray-100 dark:bg-slate-700/50 dark:border-slate-600">
           <h3 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-slate-100">Our Commitment</h3>
