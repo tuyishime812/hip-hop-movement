@@ -61,13 +61,15 @@ const Chatbot = () => {
     }
   };
 
-  const handleSendMessage = (messageText = inputValue) => {
-    if (messageText.trim() === '') return;
+  const handleSendMessage = (messageText?: string) => {
+    const textToSend = typeof messageText === 'string' ? messageText : inputValue;
+
+    if (textToSend.trim() === '') return;
 
     // Add user message
     const userMessage = {
       id: messages.length + 1,
-      text: messageText,
+      text: textToSend,
       sender: 'user'
     };
 
@@ -77,7 +79,7 @@ const Chatbot = () => {
     // Show typing indicator and delay bot response
     setIsTyping(true);
     setTimeout(() => {
-      const botResponse = getBotResponse(messageText);
+      const botResponse = getBotResponse(textToSend);
       const botMessage = {
         id: messages.length + 2,
         text: botResponse,
@@ -182,7 +184,7 @@ const Chatbot = () => {
                 className="flex-1 border border-gray-300 rounded-l-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:border-transparent"
               />
               <button
-                onClick={handleSendMessage}
+                onClick={() => handleSendMessage()}
                 className="bg-gradient-to-r from-[#3b82f6] to-[#ec4899] text-white px-4 py-2 rounded-r-lg hover:from-[#2563eb] hover:to-[#db2777] transition-all"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
