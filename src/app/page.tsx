@@ -793,13 +793,16 @@ const StoreSection = () => {
 
 const MerchandiseSection = () => {
   const [merchandise, setMerchandise] = useState<any[]>([]);
+  const [filteredMerchandise, setFilteredMerchandise] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
   useEffect(() => {
     const fetchMerchandise = async () => {
       try {
         const response = await apiService.getMerchandise();
         setMerchandise(response);
+        setFilteredMerchandise(response);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching merchandise:", error);
@@ -840,15 +843,43 @@ const MerchandiseSection = () => {
             image_url: "/merch-vinyl.jpg",
             category: "Music",
             stock_quantity: 20
+          },
+          {
+            id: 5,
+            name: "Hip-Hop Foundation Cap",
+            description: "Stylish cap with our foundation logo",
+            price: 22.00,
+            image_url: "/images/cap.jpg",
+            category: "Accessories",
+            stock_quantity: 35
+          },
+          {
+            id: 6,
+            name: "Hip-Hop Foundation T-Shirt Special",
+            description: "Premium cotton t-shirt with special design",
+            price: 28.00,
+            image_url: "/images/t-shirt.jpg",
+            category: "Clothing",
+            stock_quantity: 45
           }
         ];
         setMerchandise(mockMerchandise);
+        setFilteredMerchandise(mockMerchandise);
         setLoading(false);
       }
     };
 
     fetchMerchandise();
   }, []);
+
+  // Filter merchandise based on selected category
+  useEffect(() => {
+    if (selectedCategory === 'All') {
+      setFilteredMerchandise(merchandise);
+    } else {
+      setFilteredMerchandise(merchandise.filter(item => item.category === selectedCategory));
+    }
+  }, [selectedCategory, merchandise]);
 
   if (loading) {
     return (
@@ -885,8 +916,9 @@ const MerchandiseSection = () => {
           {['All', 'Clothing', 'Accessories', 'Music'].map((category) => (
             <button
               key={category}
+              onClick={() => setSelectedCategory(category)}
               className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                category === 'All'
+                selectedCategory === category
                   ? 'bg-gradient-to-r from-[#3b82f6] to-[#ec4899] text-white shadow-lg'
                   : 'border border-gray-300 text-gray-700 dark:border-slate-600 dark:text-slate-300 hover:bg-gradient-to-r hover:from-[#3b82f6] hover:to-[#ec4899] hover:text-white'
               }`}
@@ -897,7 +929,7 @@ const MerchandiseSection = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {merchandise.map((item) => (
+          {filteredMerchandise.map((item) => (
             <div key={item.id} className="bg-gradient-to-b from-white to-slate-50 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl dark:from-slate-800 dark:to-slate-900 border border-gray-200 dark:border-slate-700 cursor-pointer transform transition-transform duration-300 h-full flex flex-col group">
               <div className="relative overflow-hidden">
                 <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
@@ -940,6 +972,31 @@ const MerchandiseSection = () => {
             <span className="relative z-10">Support Our Cause</span>
             <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100"></span>
           </Link>
+        </div>
+
+        {/* Video Section */}
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-slate-100">Foundation Store in Action</h3>
+            <p className="text-gray-700 dark:text-slate-300 max-w-2xl mx-auto">
+              See our merchandise and how it supports our mission
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <div className="w-full max-w-4xl aspect-video bg-gray-200 border-2 border-dashed rounded-2xl overflow-hidden">
+              <video
+                src="/images/AQMe1546ne3iDZCYHm3IibrNWSYsFE54zm7Mz04M4Ny20idWGSfv7EOUPfcX65KL5B9wVeWIh70fayYntQvDIaldpqNP-V6JrfBwk7Y1kDCYIg.mp4"
+                controls
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  console.error("Video failed to load:", e);
+                  // Fallback content could be added here if needed
+                }}
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
         </div>
       </div>
     </section>
