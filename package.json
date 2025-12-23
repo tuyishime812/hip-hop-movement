@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "backend-dev": "cd backend && python run_app.py",
-    "backend-install": "cd backend && pip install -r requirements.txt"
+    "lint": "eslint"
   },
   "dependencies": {
     "next": "16.0.10",

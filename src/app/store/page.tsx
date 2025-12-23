@@ -13,7 +13,7 @@ const StorePage = () => {
       id: 1,
       name: "Hip-Hop Movement Classic Tee",
       price: 25,
-      image: "/placeholder-tshirt.jpg",
+      image: "/src/images/t shirts.png",
       description: "Premium cotton t-shirt with our iconic logo",
       sizes: ["S", "M", "L", "XL"],
       colors: ["Black", "White", "Red"]
@@ -22,7 +22,7 @@ const StorePage = () => {
       id: 2,
       name: "Limited Edition Hoodie",
       price: 50,
-      image: "/placeholder-tshirt.jpg",
+      image: "/src/images/hoodies.png",
       description: "Exclusive hoodie with unique design",
       sizes: ["S", "M", "L", "XL", "XXL"],
       colors: ["Black", "Navy", "Gray"]
@@ -31,7 +31,7 @@ const StorePage = () => {
       id: 3,
       name: "Hip-Hop Culture Cap",
       price: 18,
-      image: "/placeholder-tshirt.jpg",
+      image: "/src/images/caps.png",
       description: "Adjustable cap with embroidered logo",
       sizes: ["One Size"],
       colors: ["Black", "Red", "Blue"]
@@ -40,7 +40,7 @@ const StorePage = () => {
       id: 4,
       name: "Youth Empowerment Tank Top",
       price: 22,
-      image: "/placeholder-tshirt.jpg",
+      image: "/src/images/t shirts.png",
       description: "Support youth programs with this design",
       sizes: ["S", "M", "L", "XL"],
       colors: ["White", "Gray", "Green"]
@@ -49,7 +49,7 @@ const StorePage = () => {
       id: 5,
       name: "Artist Collaboration Tee",
       price: 28,
-      image: "/placeholder-tshirt.jpg",
+      image: "/src/images/t shirts.png",
       description: "Featuring artwork from local artists",
       sizes: ["S", "M", "L", "XL"],
       colors: ["Purple", "Yellow", "Orange"]
@@ -58,7 +58,7 @@ const StorePage = () => {
       id: 6,
       name: "Foundation Commemorative Jersey",
       price: 45,
-      image: "/placeholder-tshirt.jpg",
+      image: "/src/images/t shirts.png",
       description: "Special edition jersey to celebrate our mission",
       sizes: ["S", "M", "L", "XL", "XXL"],
       colors: ["Blue", "Green", "Black"]
@@ -96,7 +96,14 @@ const StorePage = () => {
               <button className="text-sm text-blue-600 hover:underline">View Cart</button>
             </div>
           </div>
-          <button className="w-full mt-4 hiphop-btn hiphop-btn-primary">Checkout</button>
+          <a
+            href="https://wa.me/265881434700"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full mt-4 hiphop-btn hiphop-btn-primary"
+          >
+            Checkout
+          </a>
         </div>
 
         {/* Products Grid */}
@@ -107,7 +114,11 @@ const StorePage = () => {
               className={`hiphop-card overflow-hidden relative ${selectedProduct === product.id ? 'ring-4 ring-[#ec4899]' : ''}`}
             >
               <div className="relative">
-                <div className="bg-gray-200 border-2 border-dashed w-full h-64" />
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-64 object-contain"
+                />
                 <div className="absolute top-4 right-4 bg-[#ec4899] text-white px-3 py-1 rounded-full text-sm font-bold">
                   ${product.price}
                 </div>
@@ -157,12 +168,14 @@ const StorePage = () => {
                   </div>
                 </div>
                 
-                <button 
-                  onClick={() => addToCart(product)}
+                <a
+                  href="https://wa.me/265881434700"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full hiphop-btn hiphop-btn-primary"
                 >
-                  Add to Cart
-                </button>
+                  Shop Now
+                </a>
               </div>
             </div>
           ))}
@@ -178,9 +191,9 @@ const StorePage = () => {
             <Link href="/contact" className="hiphop-btn bg-white text-[#ec4899] hover:bg-gray-100">
               Contact Us
             </Link>
-            <Link href="/donate" className="hiphop-btn bg-transparent border-2 border-white hover:bg-white/10">
+            <a href="https://wa.me/265881434700" target="_blank" rel="noopener noreferrer" className="hiphop-btn bg-transparent border-2 border-white hover:bg-white/10">
               Make a Donation
-            </Link>
+            </a>
           </div>
         </div>
       </div>
