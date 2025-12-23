@@ -157,10 +157,15 @@ const FoundationLeadersPage = () => {
                     <span className="text-xs px-3 py-1 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] text-white rounded-full">
                       In Stock
                     </span>
-                    <button className="bg-gradient-to-r from-[#3b82f6] to-[#ec4899] text-white px-4 py-2 rounded-lg text-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden group/btn">
-                      <span className="relative z-10">Add to Cart</span>
+                    <a
+                      href="https://wa.me/265881434700"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-gradient-to-r from-[#3b82f6] to-[#ec4899] text-white px-4 py-2 rounded-lg text-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden group/btn"
+                    >
+                      <span className="relative z-10">Shop Now</span>
                       <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-500 group-hover/btn:scale-x-100"></span>
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -200,14 +205,24 @@ const FoundationLeadersPage = () => {
             Support our mission by purchasing our merchandise or making a donation to our cause.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/store" className="hiphop-btn bg-white text-[#ec4899] hover:bg-gray-100 relative overflow-hidden group px-6 py-3">
+            <a
+              href="https://wa.me/265881434700"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hiphop-btn bg-white text-[#ec4899] hover:bg-gray-100 relative overflow-hidden group px-6 py-3"
+            >
               <span className="relative z-10">Shop All Merchandise</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100"></span>
-            </Link>
-            <Link href="/donate" className="hiphop-btn bg-transparent border-2 border-white hover:bg-white/10 relative overflow-hidden group px-6 py-3">
+            </a>
+            <a
+              href="https://wa.me/265881434700"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hiphop-btn bg-transparent border-2 border-white hover:bg-white/10 relative overflow-hidden group px-6 py-3"
+            >
               <span className="relative z-10">Make a Donation</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100 opacity-20"></span>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

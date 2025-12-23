@@ -156,8 +156,15 @@ const HeroSection = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="lg:w-1/2 mb-12 lg:mb-0 fade-in">
             <div className="text-center lg:text-left">
-              <div className="inline-block px-4 py-1 mb-4 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] rounded-full text-white text-sm font-medium">
-                Hip-Hop For Humanity
+              <div className="flex items-center justify-center lg:justify-start mb-4">
+                <div className="inline-block px-4 py-1 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] rounded-full text-white text-sm font-medium flex items-center">
+                  <img
+                    src="/images/hiphop logo.png"
+                    alt="Hip-Hop Logo"
+                    className="w-6 h-6 mr-2 object-contain"
+                  />
+                  Hip-Hop For Humanity
+                </div>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight tracking-tight mb-6">
                 <span className="bg-gradient-to-r from-[#3b82f6] to-[#ec4899] bg-clip-text text-transparent">Hip-Hop</span> <br />
@@ -238,25 +245,6 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* Stats Section */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { value: "1500+", label: "Community Members" },
-            { value: "50+", label: "Events Organized" },
-            { value: "200+", label: "Artists Supported" },
-            { value: "35+", label: "Programs Running" }
-          ].map((stat, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl shadow-lg p-6 cursor-pointer transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl dark:bg-slate-800 border border-gray-100 dark:border-slate-700 group"
-            >
-              <div className="text-4xl font-bold bg-gradient-to-r from-[#3b82f6] to-[#ec4899] bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
-                {stat.value}
-              </div>
-              <div className="mt-2 text-gray-600 dark:text-slate-300">{stat.label}</div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -424,63 +412,6 @@ const MissionVisionSection = () => {
 
 
 const CTASection = () => {
-  const [events, setEvents] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await apiService.getEvents();
-        setEvents(response);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-        // Fallback to mock data in case of API error
-        const mockEvents = [
-          {
-            id: 1,
-            title: "Hip-Hop Community Outreach",
-            date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-            location: "Community Center",
-            description: "Join us as we spread awareness about our foundation's mission through music and art."
-          },
-          {
-            id: 2,
-            title: "Youth Art Workshop",
-            date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
-            location: "Local School",
-            description: "Creative workshop for young artists to express themselves through various art forms."
-          },
-          {
-            id: 3,
-            title: "Fundraiser Concert",
-            date: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000).toISOString(),
-            location: "City Park",
-            description: "Evening concert featuring local artists to support our community programs."
-          }
-        ];
-        setEvents(mockEvents);
-        setLoading(false);
-      }
-    };
-
-    fetchEvents();
-  }, []);
-
-  if (loading) {
-    return (
-      <section id="donate" className="section-padding bg-gradient-to-r from-[#ec4899] to-[#0ea5e9] text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Our Movement</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-center">
-            Support our mission by donating, volunteering, or attending our events.
-          </p>
-          <p>Loading upcoming events...</p>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section id="donate" className="section-padding bg-gradient-to-r from-[#ec4899] to-[#0ea5e9] text-white">
       <div className="container mx-auto px-4">
@@ -490,33 +421,8 @@ const CTASection = () => {
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-center text-white">Join Our Movement</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto text-center text-white/90">
-            Support our mission by donating, volunteering, or attending our events.
+            Support our mission by donating or shopping our merchandise.
           </p>
-        </div>
-
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold mb-8 text-center text-white">Upcoming Events</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {events.map((event) => (
-              <div key={event.id} className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group">
-                <div className="flex items-start mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-[#ec4899] to-[#3b82f6] flex items-center justify-center mr-4 flex-shrink-0">
-                    <span className="text-white">📅</span>
-                  </div>
-                  <h4 className="text-xl font-bold text-white group-hover:text-[#ec4899] transition-colors">{event.title}</h4>
-                </div>
-                <p className="text-white/80 mb-2 flex items-center">
-                  <span className="mr-2">🕐</span>
-                  {new Date(event.date).toLocaleString()}
-                </p>
-                <p className="text-white/80 mb-4 flex items-center">
-                  <span className="mr-2">📍</span>
-                  {event.location}
-                </p>
-                <p className="text-sm text-white/70">{event.description}</p>
-              </div>
-            ))}
-          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row justify-center gap-6">
@@ -613,6 +519,149 @@ const FoundationLeadersSection = () => {
   );
 };
 
+const FoundationStoreSection = () => {
+  const merchandise = [
+    {
+      id: 1,
+      name: "T-Shirts",
+      price: "25,000 MWK",
+      image: "/images/t shirts.png",
+      description: "High-quality t-shirts with our foundation logo"
+    },
+    {
+      id: 2,
+      name: "Hoodies",
+      price: "50,000 MWK",
+      image: "/images/hoodies.png",
+      description: "Comfortable hoodies with our foundation logo"
+    },
+    {
+      id: 3,
+      name: "Caps",
+      price: "30,000 MWK",
+      image: "/images/caps.png",
+      description: "Stylish caps with our foundation logo"
+    },
+    {
+      id: 4,
+      name: "Socks",
+      price: "15,000 MWK",
+      image: "/images/socks.png",
+      description: "Trendy socks with our foundation logo"
+    }
+  ];
+
+  return (
+    <section className="section-padding bg-gradient-to-br from-blue-50 to-purple-50">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <div className="inline-block px-4 py-1 mb-4 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] rounded-full text-white text-sm font-medium">
+            Foundation Store
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-800 dark:text-slate-100">Foundation Store</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto dark:text-slate-400">
+            Show your support with our official merchandise. All proceeds support our mission.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {merchandise.map((item) => (
+            <div key={item.id} className="bg-gradient-to-b from-white to-slate-50 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl dark:from-slate-800 dark:to-slate-900 border border-gray-200 dark:border-slate-700 cursor-pointer transform transition-transform duration-300 h-full flex flex-col group">
+              <div className="relative overflow-hidden">
+                <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-3/4 h-3/4 object-contain transition-transform duration-500 group-hover:scale-110"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = '/vercel.svg'; // fallback image
+                    }}
+                  />
+                </div>
+                <div className="absolute top-3 right-3 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] text-white text-xs font-bold px-2 py-1 rounded-full">
+                  {item.price}
+                </div>
+              </div>
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-lg font-bold text-gray-800 dark:text-slate-100 mb-2">{item.name}</h3>
+                <p className="text-gray-600 dark:text-slate-300 text-sm mb-4 flex-grow">{item.description}</p>
+                <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-200 dark:border-slate-700">
+                  <span className="text-xs px-3 py-1 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] text-white rounded-full">
+                    In Stock
+                  </span>
+                  <a
+                    href="https://wa.me/265881434700"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gradient-to-r from-[#3b82f6] to-[#ec4899] text-white px-4 py-2 rounded-lg text-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden group/btn"
+                  >
+                    <span className="relative z-10">Shop Now</span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-500 group-hover/btn:scale-x-100"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Video Section */}
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-slate-100">Foundation Store in Action</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto dark:text-slate-400">
+              See our merchandise and how it supports our mission
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <div className="w-full max-w-4xl aspect-video bg-gray-200 border-2 border-dashed rounded-2xl overflow-hidden">
+              <video
+                src="/images/AQMe1546ne3iDZCYHm3IibrNWSYsFE54zm7Mz04M4Ny20idWGSfv7EOUPfcX65KL5B9wVeWIh70fayYntQvDIaldpqNP-V6JrfBwk7Y1kDCYIg.mp4"
+                controls
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  console.error("Video failed to load:", e);
+                  // Fallback content could be added here if needed
+                }}
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="mt-16 bg-gradient-to-r from-[#ec4899] to-[#0ea5e9] text-white rounded-2xl p-8 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Join Our Movement</h2>
+          <p className="text-lg mb-6 max-w-2xl mx-auto">
+            Support our mission by purchasing our merchandise or making a donation to our cause.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a
+              href="https://wa.me/265881434700"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hiphop-btn bg-white text-[#ec4899] hover:bg-gray-100 relative overflow-hidden group px-6 py-3"
+            >
+              <span className="relative z-10">Shop All Merchandise</span>
+              <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100"></span>
+            </a>
+            <a
+              href="https://wa.me/265881434700"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hiphop-btn bg-transparent border-2 border-white hover:bg-white/10 relative overflow-hidden group px-6 py-3"
+            >
+              <span className="relative z-10">Make a Donation</span>
+              <span className="absolute inset-0 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100 opacity-20"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const NewsletterSection = () => {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -671,19 +720,6 @@ const NewsletterSection = () => {
           </div>
         )}
 
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {[
-            { icon: '🎧', title: 'Music Updates' },
-            { icon: '📅', title: 'Event Invites' },
-            { icon: '🎤', title: 'Artist Spotlights' },
-            { icon: '💬', title: 'Community News' }
-          ].map((item, index) => (
-            <div key={index} className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 group cursor-pointer">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">{item.icon}</div>
-              <p className="text-white group-hover:text-[#ec4899] transition-colors">{item.title}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -871,6 +907,7 @@ export default function HomePage() {
       <AboutSection />
       <MissionVisionSection />
       <FoundationLeadersSection />
+      <FoundationStoreSection />
       <DonationGallery />
       <ArtistSupportGallery />
       <ArtsSupportGallery />
