@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import apiService from "@/services/apiService";
+import { apiService } from "@/services/api";
 
 type Article = {
   id: number;
@@ -18,6 +18,7 @@ type Article = {
 export default function NewsPage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -31,14 +32,32 @@ export default function NewsPage() {
       } catch (err: any) {
         console.error("Error fetching news articles:", err);
         setError(`Failed to load news articles: ${err?.message ?? String(err)}`);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchNews();
   }, []);
 
+  if (loading) {
+    return (
+      <main>
+        <h1>News</h1>
+        <p>Loading...</p>
+      </main>
+    );
+  }
+
   if (error) {
-    return <div className="error">{error}</div>;
+    return (
+      <main>
+        <h1>News</h1>
+        <div className="error" role="alert">
+          {error}
+        </div>
+      </main>
+    );
   }
 
   return (
@@ -51,7 +70,9 @@ export default function NewsPage() {
           {articles.map((a) => (
             <li key={a.id}>
               <h2>{a.title}</h2>
-              <p>{a.author} — {new Date(a.published_at).toLocaleDateString()}</p>
+              <p>
+                {a.author} — {a.published_at ? new Date(a.published_at).toLocaleDateString() : ""}
+              </p>
             </li>
           ))}
         </ul>
