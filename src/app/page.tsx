@@ -58,10 +58,7 @@ const Navbar = () => {
             Gallery
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] transition-all duration-300 group-hover:w-full"></span>
           </Link>
-          <Link href="/news" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-all duration-300 relative group dark:text-slate-200 dark:hover:text-[#93c5fd]">
-            News
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] transition-all duration-300 group-hover:w-full"></span>
-          </Link>
+          
           <a href="https://wa.me/265881434700" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-all duration-300 relative group dark:text-slate-200 dark:hover:text-[#93c5fd]">
             Shop
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] transition-all duration-300 group-hover:w-full"></span>
@@ -110,7 +107,7 @@ const Navbar = () => {
             <Link href="#mission" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-colors dark:text-slate-200 dark:hover:text-[#93c5fd] py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800" onClick={() => setIsOpen(false)}>Mission</Link>
             <Link href="/foundation-leaders" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-colors dark:text-slate-200 dark:hover:text-[#93c5fd] py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800" onClick={() => setIsOpen(false)}>Foundation Leaders</Link>
             <Link href="/gallery" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-colors dark:text-slate-200 dark:hover:text-[#93c5fd] py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800" onClick={() => setIsOpen(false)}>Gallery</Link>
-            <Link href="/news" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-colors dark:text-slate-200 dark:hover:text-[#93c5fd] py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800" onClick={() => setIsOpen(false)}>News</Link>
+            
             <a href="https://wa.me/265881434700" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-colors dark:text-slate-200 dark:hover:text-[#93c5fd] py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800" onClick={() => setIsOpen(false)}>Shop</a>
             <Link href="#contact" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-colors dark:text-slate-200 dark:hover:text-[#93c5fd] py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800" onClick={() => setIsOpen(false)}>Contact</Link>
             <Link
