@@ -33,10 +33,45 @@ const FoundationLeadersPage = () => {
       role: "Operations",
       image: "/images/team_management.jpg",
       bio: "Managing team operations and coordination for maximum impact."
+    },
+    {
+      id: 5,
+      name: "Alinafe Bvumber",
+      role: "Coordinator",
+      image: "/images/Alinafe Bvumbwe.jpg",
+      bio: "Coordinator managing day-to-day operations and ensuring smooth execution of foundation activities."
+    },
+    {
+      id: 6,
+      name: "Leah Perekamoyo",
+      role: "Head of Finance",
+      image: "/images/Leah Perekamoyo.jpg",
+      bio: "Head of Finance overseeing financial operations and ensuring sustainable growth of the foundation."
+    },
+    {
+      id: 7,
+      name: "Henderson Paul",
+      role: "Spokesperson",
+      image: "/images/Henderson Paul.png",
+      bio: "Spokesperson representing the foundation and communicating our mission to the public."
+    },
+    {
+      id: 8,
+      name: "Romeo Damaso",
+      role: "Creative Director",
+      image: "/images/Romeo Damaso.jpg",
+      bio: "Creative Director leading artistic initiatives and creative projects for the foundation."
+    },
+    {
+      id: 9,
+      name: "Manuel Seleman",
+      role: "Head of Security",
+      image: "/images/Manuel Security.jpg",
+      bio: "Head of Security ensuring the safety and security of all foundation events and operations."
     }
   ];
 
-  // Merchandise data
+ 
   const merchandise = [
     {
       id: 1,
@@ -92,7 +127,7 @@ const FoundationLeadersPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
             {leaders.map((leader) => (
               <div key={leader.id} className="bg-gradient-to-b from-white to-slate-50 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl dark:from-slate-800 dark:to-slate-900 border border-gray-200 dark:border-slate-700 overflow-hidden text-center group">
                 <div className="relative overflow-hidden">

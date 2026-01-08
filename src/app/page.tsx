@@ -10,6 +10,7 @@ import ArtsSupportGallery from '@/components/ArtsSupportGallery';
 import HipHopMovementGallery from '@/components/HipHopMovementGallery';
 import YoungTalentGallery from '@/components/YoungTalentGallery';
 import SupportElderWomenGallery from '@/components/SupportElderWomenGallery';
+import LeadersSlider from '@/components/LeadersSlider';
 import { useTheme } from '@/components/ThemeProvider';
 import { apiService } from '@/services/api';
 
@@ -407,9 +408,15 @@ const MissionVisionSection = () => {
   );
 };
 
-
-
-
+const LeadersSection = () => {
+  return (
+    <section id="leaders" className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-b from-slate-50 to-blue-50 dark:from-slate-800 dark:to-slate-900">
+      <div className="container mx-auto px-4">
+        <LeadersSlider />
+      </div>
+    </section>
+  );
+};
 
 const CTASection = () => {
   return (
@@ -906,7 +913,7 @@ export default function HomePage() {
       <HeroSection />
       <AboutSection />
       <MissionVisionSection />
-      <FoundationLeadersSection />
+      <LeadersSection />
       <FoundationStoreSection />
       <DonationGallery />
       <ArtistSupportGallery />
