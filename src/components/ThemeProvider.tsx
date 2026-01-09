@@ -13,20 +13,28 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Mark as mounted to prevent server/client mismatch
+    setMounted(true);
+
     // Check for saved theme preference or default to system preference
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else if (systemPrefersDark) {
-      setTheme('dark');
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme') as Theme | null;
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (savedTheme) {
+        setTheme(savedTheme);
+      } else if (systemPrefersDark) {
+        setTheme('dark');
+      }
     }
   }, []);
 
   useEffect(() => {
+    if (!mounted) return;
+
     // Apply theme to the document
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
@@ -35,12 +43,23 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
 
     // Save theme preference
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme, mounted]);
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
+
+  // Return children without theme class during hydration
+  if (!mounted) {
+    return (
+      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        {children}
+      </ThemeContext.Provider>
+    );
+  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
