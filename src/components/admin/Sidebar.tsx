@@ -193,8 +193,11 @@ const Sidebar = ({ onNavigate }: { onNavigate?: () => void }) => {
             {sidebarItems.map((item) => (
               <li key={item.name}>
                 <Link
-                  href={item.href}
-                  onClick={() => handleNavigation(item.href)}
+                  href={item.href.startsWith('/admin#') ? '/admin' : item.href}
+                  onClick={(e) => {
+                    e.preventDefault(); // Prevent default navigation for hash links
+                    handleNavigation(item.href);
+                  }}
                   className={`flex items-center p-3 rounded-lg transition-colors duration-200 ${
                     isActive(item.href)
                       ? 'bg-gradient-to-r from-[#3b82f6]/20 to-[#ec4899]/20 text-white border-l-4 border-[#3b82f6]'
