@@ -192,13 +192,9 @@ const Sidebar = ({ onNavigate }: { onNavigate?: () => void }) => {
           <ul className="space-y-1 px-2">
             {sidebarItems.map((item) => (
               <li key={item.name}>
-                <Link
-                  href={item.href.startsWith('/admin#') ? '/admin' : item.href}
-                  onClick={(e) => {
-                    e.preventDefault(); // Prevent default navigation for hash links
-                    handleNavigation(item.href);
-                  }}
-                  className={`flex items-center p-3 rounded-lg transition-colors duration-200 ${
+                <button
+                  onClick={() => handleNavigation(item.href)}
+                  className={`flex items-center p-3 rounded-lg transition-colors duration-200 w-full text-left ${
                     isActive(item.href)
                       ? 'bg-gradient-to-r from-[#3b82f6]/20 to-[#ec4899]/20 text-white border-l-4 border-[#3b82f6]'
                       : 'hover:bg-slate-700 text-slate-200'
@@ -208,7 +204,7 @@ const Sidebar = ({ onNavigate }: { onNavigate?: () => void }) => {
                     {item.icon}
                     {!isCollapsed && <span className="ml-3">{item.name}</span>}
                   </span>
-                </Link>
+                </button>
               </li>
             ))}
           </ul>
