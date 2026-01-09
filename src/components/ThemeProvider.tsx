@@ -29,13 +29,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Apply theme to the document
     if (theme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
       document.documentElement.classList.add('dark');
     } else {
-      document.documentElement.removeAttribute('data-theme');
       document.documentElement.classList.remove('dark');
     }
-    
+
     // Save theme preference
     localStorage.setItem('theme', theme);
   }, [theme]);
