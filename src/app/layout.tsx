@@ -6,13 +6,15 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  display: 'swap'
+  display: 'swap',
+  preload: false // Disable preloading to avoid connection issues
 });
 const rubik = Rubik({
   subsets: ['latin'],
   variable: '--font-rubik',
   weight: ['400', '500', '700', '900'],
-  display: 'swap'
+  display: 'swap',
+  preload: false // Disable preloading to avoid connection issues
 });
 
 export const metadata: Metadata = {
