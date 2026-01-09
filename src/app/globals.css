@@ -73,7 +73,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-[data-theme="dark"] {
+.dark {
   --background: #0f172a;
   --foreground: #f8fafc;
   --primary-50: #eff6ff;

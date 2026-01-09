@@ -1,75 +1,93 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { apiService } from '@/services/api';
 
 const FoundationLeadersPage = () => {
-  // Foundation leaders data
-  const leaders = [
-    {
-      id: 1,
-      name: "IKK",
-      role: "Chairman",
-      image: "/images/chairman.jpg",
-      bio: "Chairman of the Hip-Hop Foundation, leading the movement with vision and purpose."
-    },
-    {
-      id: 2,
-      name: "Martin Angelz",
-      role: "Vice Chairman",
-      image: "/images/vice_chairman martin.jpg",
-      bio: "Vice Chairman driving the mission forward in the hip-hop community."
-    },
-    {
-      id: 3,
-      name: "Tuyishime Martin",
-      role: "IT Manager",
-      image: "/images/IT manager.jpg",
-      bio: "Ensuring digital innovation for the movement and technological advancement."
-    },
-    {
-      id: 4,
-      name: "Team Management",
-      role: "Operations",
-      image: "/images/team_management.jpg",
-      bio: "Managing team operations and coordination for maximum impact."
-    },
-    {
-      id: 5,
-      name: "Alinafe Bvumber",
-      role: "Coordinator",
-      image: "/images/Alinafe Bvumbwe.jpg",
-      bio: "Coordinator managing day-to-day operations and ensuring smooth execution of foundation activities."
-    },
-    {
-      id: 6,
-      name: "Leah Perekamoyo",
-      role: "Head of Finance",
-      image: "/images/Leah Perekamoyo.jpg",
-      bio: "Head of Finance overseeing financial operations and ensuring sustainable growth of the foundation."
-    },
-    {
-      id: 7,
-      name: "Henderson Paul",
-      role: "Spokesperson",
-      image: "/images/Henderson Paul.png",
-      bio: "Spokesperson representing the foundation and communicating our mission to the public."
-    },
-    {
-      id: 8,
-      name: "Romeo Damaso",
-      role: "Creative Director",
-      image: "/images/Romeo Damaso.jpg",
-      bio: "Creative Director leading artistic initiatives and creative projects for the foundation."
-    },
-    {
-      id: 9,
-      name: "Manuel Seleman",
-      role: "Head of Security",
-      image: "/images/Manuel Security.jpg",
-      bio: "Head of Security ensuring the safety and security of all foundation events and operations."
-    }
-  ];
+  const [leaders, setLeaders] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLeaders = async () => {
+      try {
+        const staff = await apiService.getStaff();
+        setLeaders(staff);
+      } catch (error) {
+        console.error('Error fetching leaders:', error);
+        // Fallback to default data if API fails
+        setLeaders([
+          {
+            id: 1,
+            name: "IKK",
+            role: "Chairman",
+            image: "/images/chairman.jpg",
+            bio: "Chairman of the Hip-Hop Foundation, leading the movement with vision and purpose."
+          },
+          {
+            id: 2,
+            name: "Martin Angelz",
+            role: "Vice Chairman",
+            image: "/images/vice_chairman martin.jpg",
+            bio: "Vice Chairman driving the mission forward in the hip-hop community."
+          },
+          {
+            id: 3,
+            name: "Tuyishime Martin",
+            role: "IT Manager",
+            image: "/images/IT manager.jpg",
+            bio: "Ensuring digital innovation for the movement and technological advancement."
+          },
+          {
+            id: 4,
+            name: "Team Management",
+            role: "Operations",
+            image: "/images/team_management.jpg",
+            bio: "Managing team operations and coordination for maximum impact."
+          },
+          {
+            id: 5,
+            name: "Alinafe Bvumber",
+            role: "Coordinator",
+            image: "/images/Alinafe Bvumbwe.jpg",
+            bio: "Coordinator managing day-to-day operations and ensuring smooth execution of foundation activities."
+          },
+          {
+            id: 6,
+            name: "Leah Perekamoyo",
+            role: "Head of Finance",
+            image: "/images/Leah Perekamoyo.jpg",
+            bio: "Head of Finance overseeing financial operations and ensuring sustainable growth of the foundation."
+          },
+          {
+            id: 7,
+            name: "Henderson Paul",
+            role: "Spokesperson",
+            image: "/images/Henderson Paul.png",
+            bio: "Spokesperson representing the foundation and communicating our mission to the public."
+          },
+          {
+            id: 8,
+            name: "Romeo Damaso",
+            role: "Creative Director",
+            image: "/images/Romeo Damaso.jpg",
+            bio: "Creative Director leading artistic initiatives and creative projects for the foundation."
+          },
+          {
+            id: 9,
+            name: "Manuel Seleman",
+            role: "Head of Security",
+            image: "/images/Manuel Security.jpg",
+            bio: "Head of Security ensuring the safety and security of all foundation events and operations."
+          }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLeaders();
+  }, []);
 
  
   const merchandise = [
@@ -127,34 +145,40 @@ const FoundationLeadersPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-            {leaders.map((leader) => (
-              <div key={leader.id} className="bg-gradient-to-b from-white to-slate-50 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl dark:from-slate-800 dark:to-slate-900 border border-gray-200 dark:border-slate-700 overflow-hidden text-center group">
-                <div className="relative overflow-hidden">
-                  <img
-                    src={leader.image}
-                    alt={leader.name}
-                    className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = '/vercel.svg'; // fallback image
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <div className="text-white">
-                      <h3 className="text-lg font-bold">{leader.name}</h3>
-                      <p className="text-sm text-[#ec4899]">{leader.role}</p>
+          {loading ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#3b82f6]"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+              {leaders.map((leader) => (
+                <div key={leader.id} className="bg-gradient-to-b from-white to-slate-50 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl dark:from-slate-800 dark:to-slate-900 border border-gray-200 dark:border-slate-700 overflow-hidden text-center group">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={leader.image}
+                      alt={leader.name}
+                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/vercel.svg'; // fallback image
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                      <div className="text-white">
+                        <h3 className="text-lg font-bold">{leader.name}</h3>
+                        <p className="text-sm text-[#ec4899]">{leader.role}</p>
+                      </div>
                     </div>
                   </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-800 dark:text-slate-100">{leader.name}</h3>
+                    <p className="text-[#ec4899] mb-3 font-medium">{leader.role}</p>
+                    <p className="text-gray-600 dark:text-slate-300 text-sm">{leader.bio}</p>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 dark:text-slate-100">{leader.name}</h3>
-                  <p className="text-[#ec4899] mb-3 font-medium">{leader.role}</p>
-                  <p className="text-gray-600 dark:text-slate-300 text-sm">{leader.bio}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Merchandise Section */}

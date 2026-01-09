@@ -219,6 +219,70 @@ class ApiService {
       }
     ];
   }
+
+  // Staff API
+  async getStaff() {
+    try {
+      const response = await fetch('/api/staff');
+      const result = await response.json();
+      return result.success ? result.data : [];
+    } catch (error) {
+      console.error('Error fetching staff:', error);
+      // Return mock data in case of error
+      return [
+        { id: 1, name: "IKK", role: "Chairman", image: "/images/chairman.jpg", bio: "Chairman of the Hip-Hop Foundation, leading the movement with vision and purpose." },
+        { id: 2, name: "Martin Angelz", role: "Vice Chairman", image: "/images/vice_chairman martin.jpg", bio: "Vice Chairman driving the mission forward in the hip-hop community." },
+        { id: 3, name: "Tuyishime Martin", role: "IT Manager", image: "/images/IT manager.jpg", bio: "Ensuring digital innovation for the movement and technological advancement." }
+      ];
+    }
+  }
+
+  async createStaff(staffData: any) {
+    try {
+      const response = await fetch('/api/staff', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(staffData),
+      });
+      const result = await response.json();
+      return result.success ? result.data : null;
+    } catch (error) {
+      console.error('Error creating staff:', error);
+      return null;
+    }
+  }
+
+  async updateStaff(staffData: any) {
+    try {
+      const response = await fetch('/api/staff', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(staffData),
+      });
+      const result = await response.json();
+      return result.success ? result.data : null;
+    } catch (error) {
+      console.error('Error updating staff:', error);
+      return null;
+    }
+  }
+
+  async deleteStaff(id: number) {
+    try {
+      const response = await fetch(`/api/staff?id=${id}`, {
+        method: 'DELETE',
+      });
+      const result = await response.json();
+      return result.success ? result.data : null;
+    } catch (error) {
+      console.error('Error deleting staff:', error);
+      return null;
+    }
+  }
 }
 
 export const apiService = new ApiService();
