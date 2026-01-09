@@ -68,9 +68,14 @@
   --color-secondary-700: var(--secondary-700);
   --color-secondary-800: var(--secondary-800);
   --color-secondary-900: var(--secondary-900);
-  --font-sans: 'Inter', var(--font-geist-sans);
+  --font-sans: 'Inter', sans-serif;
   --font-heading: 'Rubik', sans-serif;
-  --font-mono: var(--font-geist-mono);
+  --font-mono: monospace;
+}
+
+/* Prevent hydration mismatch for fonts */
+body {
+  font-family: 'Inter', sans-serif;
 }
 
 .dark {
