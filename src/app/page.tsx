@@ -803,7 +803,7 @@ const Footer = () => {
               </a>
               <a href="https://www.tiktok.com/@ikk268" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#ec4899] bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300">
                 <span className="sr-only">TikTok</span>
-                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12.53.033a.44.44 0 0 1 .41.277c.08.2.047.42-.11.564C8.003 5.25 5.996 10.375 6 15.002A6.5 6.5 0 0 0 12 21.49a6.7 6.7 0 0 0 2.12-.342 6.4 6.4 0 0 0 5.56-8.982 6.5 6.5 0 0 0-3.02-3.485.48.48 0 0 1 .11-1.02 7.4 7.4 0 0 1 3.45 3.98 7.4 7.4 0 0 1-3.32 8.36 7.3 7.3 0 0 1-2.43.458 7.4 7.4 0 0 1-5.4-1.31 7.3 7.3 0 0 1-2.23-3.35A7.3 7.3 0 0 1 5 15.002c.002-5.26 2.25-9.998 5.66-13.33a.48.48 0 0 1 .37-.14z" />
                 </svg>
               </a>
