@@ -80,7 +80,7 @@ const ArtistsManagement = () => {
     if (!currentArtist) return;
 
     try {
-      let result;
+      let result: any;
       if (isEditing) {
         // Update existing artist
         result = currentArtist;

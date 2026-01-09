@@ -76,7 +76,7 @@ const StaffManagement = () => {
     if (!currentStaff) return;
 
     try {
-      let result;
+      let result: any;
       if (isEditing) {
         // Update existing staff member
         result = await apiService.updateStaff(currentStaff);

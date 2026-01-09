@@ -88,13 +88,13 @@ const DonationsManagement = () => {
     if (!currentDonation) return;
 
     try {
-      let result;
+      let result: any;
       if (isEditing) {
         // Update existing donation
         result = await apiService.updateDonation(currentDonation);
 
         if (result) {
-          setDonations(donations.map(donation => 
+          setDonations(donations.map(donation =>
             donation.id === currentDonation.id ? result : donation
           ));
         } else {

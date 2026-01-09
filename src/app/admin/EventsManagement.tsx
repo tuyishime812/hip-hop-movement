@@ -90,13 +90,13 @@ const EventsManagement = () => {
     if (!currentEvent) return;
 
     try {
-      let result;
+      let result: any;
       if (isEditing) {
         // Update existing event
         result = await apiService.updateEvent(currentEvent);
 
         if (result) {
-          setEvents(events.map(event => 
+          setEvents(events.map(event =>
             event.id === currentEvent.id ? result : event
           ));
         } else {

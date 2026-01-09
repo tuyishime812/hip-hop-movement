@@ -80,7 +80,7 @@ const NewsManagement = () => {
     if (!currentNews) return;
 
     try {
-      let result;
+      let result: any;
       if (isEditing) {
         // Update existing news item
         result = currentNews;

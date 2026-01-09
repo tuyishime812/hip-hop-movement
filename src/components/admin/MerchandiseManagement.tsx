@@ -82,7 +82,7 @@ const MerchandiseManagement = () => {
     if (!currentItem) return;
 
     try {
-      let result;
+      let result: any;
       if (isEditing) {
         // Update existing item
         result = currentItem;
