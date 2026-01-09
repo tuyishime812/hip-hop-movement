@@ -87,13 +87,20 @@ const Navbar = () => {
             )}
           </button>
           <NotificationSystem />
-          <div className={`hidden md:block ${isOpen ? 'block' : 'hidden'} mt-4 md:mt-0`}>
+          <div className={`hidden md:flex items-center space-x-4 ${isOpen ? 'block' : 'hidden'} mt-4 md:mt-0`}>
             <Link
               href="#donate"
               className="hiphop-btn hiphop-btn-primary relative group overflow-hidden"
             >
               <span className="relative z-10">Support Us</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
+            </Link>
+            <Link
+              href="/admin/login"
+              className="hiphop-btn hiphop-btn-secondary relative group overflow-hidden"
+            >
+              <span className="relative z-10">Admin</span>
+              <span className="absolute inset-0 bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
             </Link>
           </div>
         </div>
@@ -117,6 +124,14 @@ const Navbar = () => {
             >
               <span className="relative z-10">Support Us</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
+            </Link>
+            <Link
+              href="/admin/login"
+              className="hiphop-btn hiphop-btn-secondary w-full text-center mt-2 relative group overflow-hidden"
+              onClick={() => setIsOpen(false)}
+            >
+              <span className="relative z-10">Admin</span>
+              <span className="absolute inset-0 bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
             </Link>
           </div>
           <div className="pt-4 mt-4 border-t border-gray-200 dark:border-slate-700 flex items-center justify-center space-x-4">
