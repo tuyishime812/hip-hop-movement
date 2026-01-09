@@ -133,6 +133,16 @@ class ApiService {
     return { ...donationData, id: Date.now(), status: "completed", created_at: new Date().toISOString() };
   }
 
+  async updateDonation(donationData: any) {
+    // In frontend-only mode, we just return the data as if it was updated
+    return { ...donationData, updated_at: new Date().toISOString() };
+  }
+
+  async deleteDonation(id: number) {
+    // In frontend-only mode, we just return true to indicate success
+    return true;
+  }
+
   // Contact API
   async createContactMessage(messageData: any) {
     // In frontend-only mode, we just return the data as if it was created
@@ -175,6 +185,66 @@ class ApiService {
       { id: 2, name: "Pitchfork", url: "https://pitchfork.com" },
       { id: 3, name: "HipHopDX", url: "https://hiphopdx.com" }
     ];
+  }
+
+  async createNews(newsData: any) {
+    // In frontend-only mode, we just return the data as if it was created
+    return { ...newsData, id: Date.now(), created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
+  }
+
+  async updateNews(newsData: any) {
+    // In frontend-only mode, we just return the data as if it was updated
+    return { ...newsData, updated_at: new Date().toISOString() };
+  }
+
+  async deleteNews(id: number) {
+    // In frontend-only mode, we just return true to indicate success
+    return true;
+  }
+
+  async createEvent(eventData: any) {
+    // In frontend-only mode, we just return the data as if it was created
+    return { ...eventData, id: Date.now(), created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
+  }
+
+  async updateEvent(eventData: any) {
+    // In frontend-only mode, we just return the data as if it was updated
+    return { ...eventData, updated_at: new Date().toISOString() };
+  }
+
+  async deleteEvent(id: number) {
+    // In frontend-only mode, we just return true to indicate success
+    return true;
+  }
+
+  async createArtist(artistData: any) {
+    // In frontend-only mode, we just return the data as if it was created
+    return { ...artistData, id: Date.now(), created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
+  }
+
+  async updateArtist(artistData: any) {
+    // In frontend-only mode, we just return the data as if it was updated
+    return { ...artistData, updated_at: new Date().toISOString() };
+  }
+
+  async deleteArtist(id: number) {
+    // In frontend-only mode, we just return true to indicate success
+    return true;
+  }
+
+  async createMerchandise(merchData: any) {
+    // In frontend-only mode, we just return the data as if it was created
+    return { ...merchData, id: Date.now(), created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
+  }
+
+  async updateMerchandise(merchData: any) {
+    // In frontend-only mode, we just return the data as if it was updated
+    return { ...merchData, updated_at: new Date().toISOString() };
+  }
+
+  async deleteMerchandise(id: number) {
+    // In frontend-only mode, we just return true to indicate success
+    return true;
   }
 
   // Merchandise API
