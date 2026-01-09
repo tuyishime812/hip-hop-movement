@@ -67,14 +67,6 @@ const AdminDashboard = () => {
     loadStats();
   }, [router]);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#3b82f6]"></div>
-      </div>
-    );
-  }
-
   // Handle navigation from sidebar
   const handleNavigation = (tab: string) => {
     setActiveTab(tab);
@@ -102,6 +94,14 @@ const AdminDashboard = () => {
       window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#3b82f6]"></div>
+      </div>
+    );
+  }
 
   return (
     <NotificationProvider>
