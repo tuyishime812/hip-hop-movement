@@ -18,10 +18,21 @@ class ApiService {
     try {
       const q = query(collection(db, 'events'), orderBy('date', 'desc'));
       const querySnapshot = await getDocs(q);
-      return querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+      return querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: parseInt(doc.id) || Date.now(),
+          title: data.title || '',
+          description: data.description || '',
+          date: data.date || '',
+          location: data.location || '',
+          time: data.time || '',
+          image_url: data.image_url || '',
+          is_featured: data.is_featured || false,
+          created_at: data.created_at || new Date().toISOString(),
+          updated_at: data.updated_at || new Date().toISOString()
+        };
+      });
     } catch (error) {
       console.error('Error getting events:', error);
       return [];
@@ -42,7 +53,18 @@ class ApiService {
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       });
-      return { id: docRef.id, ...eventData };
+      return {
+        id: parseInt(docRef.id) || Date.now(),
+        title: eventData.title || '',
+        description: eventData.description || '',
+        date: eventData.date || '',
+        location: eventData.location || '',
+        time: eventData.time || '',
+        image_url: eventData.image_url || '',
+        is_featured: eventData.is_featured || false,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
     } catch (error) {
       console.error('Error creating event:', error);
       return null;
@@ -56,7 +78,18 @@ class ApiService {
         ...eventData,
         updated_at: new Date().toISOString()
       });
-      return { id: eventData.id, ...eventData };
+      return {
+        id: parseInt(eventData.id.toString()) || eventData.id,
+        title: eventData.title || '',
+        description: eventData.description || '',
+        date: eventData.date || '',
+        location: eventData.location || '',
+        time: eventData.time || '',
+        image_url: eventData.image_url || '',
+        is_featured: eventData.is_featured || false,
+        created_at: eventData.created_at || new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
     } catch (error) {
       console.error('Error updating event:', error);
       return null;
@@ -79,10 +112,20 @@ class ApiService {
     try {
       const q = query(collection(db, 'artists'), orderBy('name'));
       const querySnapshot = await getDocs(q);
-      return querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+      return querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: parseInt(doc.id) || Date.now(),
+          name: data.name || '',
+          bio: data.bio || '',
+          genre: data.genre || '',
+          image_url: data.image_url || '',
+          social_links: data.social_links || '{}',
+          is_featured: data.is_featured || false,
+          created_at: data.created_at || new Date().toISOString(),
+          updated_at: data.updated_at || new Date().toISOString()
+        };
+      });
     } catch (error) {
       console.error('Error getting artists:', error);
       return [];
@@ -101,7 +144,17 @@ class ApiService {
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       });
-      return { id: docRef.id, ...artistData };
+      return {
+        id: parseInt(docRef.id) || Date.now(),
+        name: artistData.name || '',
+        bio: artistData.bio || '',
+        genre: artistData.genre || '',
+        image_url: artistData.image_url || '',
+        social_links: artistData.social_links || '{}',
+        is_featured: artistData.is_featured || false,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
     } catch (error) {
       console.error('Error creating artist:', error);
       return null;
@@ -115,7 +168,17 @@ class ApiService {
         ...artistData,
         updated_at: new Date().toISOString()
       });
-      return { id: artistData.id, ...artistData };
+      return {
+        id: parseInt(artistData.id.toString()) || artistData.id,
+        name: artistData.name || '',
+        bio: artistData.bio || '',
+        genre: artistData.genre || '',
+        image_url: artistData.image_url || '',
+        social_links: artistData.social_links || '{}',
+        is_featured: artistData.is_featured || false,
+        created_at: artistData.created_at || new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
     } catch (error) {
       console.error('Error updating artist:', error);
       return null;
@@ -138,10 +201,22 @@ class ApiService {
     try {
       const q = query(collection(db, 'donations'), orderBy('created_at', 'desc'));
       const querySnapshot = await getDocs(q);
-      return querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+      return querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: parseInt(doc.id) || Date.now(), // Convert to number or use timestamp
+          amount: data.amount || 0,
+          currency: data.currency || 'USD',
+          donor_name: data.donor_name || '',
+          donor_email: data.donor_email || '',
+          message: data.message || '',
+          transaction_id: data.transaction_id || '',
+          payment_method: data.payment_method || 'credit_card',
+          status: data.status || 'completed',
+          donor_id: data.donor_id || 0,
+          created_at: data.created_at || new Date().toISOString()
+        };
+      });
     } catch (error) {
       console.error('Error getting donations:', error);
       return [];
@@ -152,10 +227,15 @@ class ApiService {
     try {
       const docRef = await addDoc(collection(db, 'donations'), {
         ...donationData,
-        status: 'completed',
+        status: donationData.status || 'completed',
         created_at: new Date().toISOString()
       });
-      return { id: docRef.id, ...donationData, status: 'completed' };
+      return {
+        id: parseInt(docRef.id) || Date.now(),
+        ...donationData,
+        status: donationData.status || 'completed',
+        created_at: new Date().toISOString()
+      };
     } catch (error) {
       console.error('Error creating donation:', error);
       return null;
@@ -169,7 +249,10 @@ class ApiService {
         ...donationData,
         updated_at: new Date().toISOString()
       });
-      return { id: donationData.id, ...donationData };
+      return {
+        id: parseInt(donationData.id.toString()) || donationData.id,
+        ...donationData
+      };
     } catch (error) {
       console.error('Error updating donation:', error);
       return null;
@@ -205,15 +288,25 @@ class ApiService {
   async getNews() {
     try {
       const q = query(
-        collection(db, 'news'), 
-        where('is_published', '==', true), 
+        collection(db, 'news'),
+        where('is_published', '==', true),
         orderBy('published_at', 'desc')
       );
       const querySnapshot = await getDocs(q);
-      return querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+      return querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: parseInt(doc.id) || Date.now(),
+          title: data.title || '',
+          content: data.content || '',
+          author: data.author || '',
+          published_at: data.published_at || new Date().toISOString(),
+          image_url: data.image_url || '',
+          is_published: data.is_published || true,
+          created_at: data.created_at || new Date().toISOString(),
+          updated_at: data.updated_at || new Date().toISOString()
+        };
+      });
     } catch (error) {
       console.error('Error getting news:', error);
       return [];
@@ -236,7 +329,17 @@ class ApiService {
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       });
-      return { id: docRef.id, ...newsData };
+      return {
+        id: parseInt(docRef.id) || Date.now(),
+        title: newsData.title || '',
+        content: newsData.content || '',
+        author: newsData.author || '',
+        published_at: newsData.published_at || new Date().toISOString(),
+        image_url: newsData.image_url || '',
+        is_published: newsData.is_published || true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
     } catch (error) {
       console.error('Error creating news:', error);
       return null;
@@ -250,7 +353,17 @@ class ApiService {
         ...newsData,
         updated_at: new Date().toISOString()
       });
-      return { id: newsData.id, ...newsData };
+      return {
+        id: parseInt(newsData.id.toString()) || newsData.id,
+        title: newsData.title || '',
+        content: newsData.content || '',
+        author: newsData.author || '',
+        published_at: newsData.published_at || new Date().toISOString(),
+        image_url: newsData.image_url || '',
+        is_published: newsData.is_published || true,
+        created_at: newsData.created_at || new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
     } catch (error) {
       console.error('Error updating news:', error);
       return null;
@@ -273,10 +386,20 @@ class ApiService {
     try {
       const q = query(collection(db, 'merchandise'), orderBy('name'));
       const querySnapshot = await getDocs(q);
-      return querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+      return querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: parseInt(doc.id) || Date.now(),
+          name: data.name || '',
+          description: data.description || '',
+          price: data.price || 0,
+          image_url: data.image_url || '',
+          category: data.category || '',
+          stock_quantity: data.stock_quantity || 0,
+          created_at: data.created_at || new Date().toISOString(),
+          updated_at: data.updated_at || new Date().toISOString()
+        };
+      });
     } catch (error) {
       console.error('Error getting merchandise:', error);
       return [];
@@ -290,7 +413,17 @@ class ApiService {
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       });
-      return { id: docRef.id, ...merchData };
+      return {
+        id: parseInt(docRef.id) || Date.now(),
+        name: merchData.name || '',
+        description: merchData.description || '',
+        price: merchData.price || 0,
+        image_url: merchData.image_url || '',
+        category: merchData.category || '',
+        stock_quantity: merchData.stock_quantity || 0,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
     } catch (error) {
       console.error('Error creating merchandise:', error);
       return null;
@@ -304,7 +437,17 @@ class ApiService {
         ...merchData,
         updated_at: new Date().toISOString()
       });
-      return { id: merchData.id, ...merchData };
+      return {
+        id: parseInt(merchData.id.toString()) || merchData.id,
+        name: merchData.name || '',
+        description: merchData.description || '',
+        price: merchData.price || 0,
+        image_url: merchData.image_url || '',
+        category: merchData.category || '',
+        stock_quantity: merchData.stock_quantity || 0,
+        created_at: merchData.created_at || new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
     } catch (error) {
       console.error('Error updating merchandise:', error);
       return null;
@@ -327,10 +470,21 @@ class ApiService {
     try {
       const q = query(collection(db, 'staff'), orderBy('name'));
       const querySnapshot = await getDocs(q);
-      return querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+      return querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: parseInt(doc.id) || Date.now(),
+          name: data.name || '',
+          position: data.position || '',
+          bio: data.bio || '',
+          image_url: data.image_url || '',
+          email: data.email || '',
+          phone: data.phone || '',
+          social_links: data.social_links || '{}',
+          created_at: data.created_at || new Date().toISOString(),
+          updated_at: data.updated_at || new Date().toISOString()
+        };
+      });
     } catch (error) {
       console.error('Error getting staff:', error);
       return [];
@@ -344,7 +498,18 @@ class ApiService {
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       });
-      return { id: docRef.id, ...staffData };
+      return {
+        id: parseInt(docRef.id) || Date.now(),
+        name: staffData.name || '',
+        position: staffData.position || '',
+        bio: staffData.bio || '',
+        image_url: staffData.image_url || '',
+        email: staffData.email || '',
+        phone: staffData.phone || '',
+        social_links: staffData.social_links || '{}',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
     } catch (error) {
       console.error('Error creating staff:', error);
       return null;
@@ -358,7 +523,18 @@ class ApiService {
         ...staffData,
         updated_at: new Date().toISOString()
       });
-      return { id: staffData.id, ...staffData };
+      return {
+        id: parseInt(staffData.id.toString()) || staffData.id,
+        name: staffData.name || '',
+        position: staffData.position || '',
+        bio: staffData.bio || '',
+        image_url: staffData.image_url || '',
+        email: staffData.email || '',
+        phone: staffData.phone || '',
+        social_links: staffData.social_links || '{}',
+        created_at: staffData.created_at || new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
     } catch (error) {
       console.error('Error updating staff:', error);
       return null;
