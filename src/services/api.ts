@@ -28,6 +28,10 @@ class ApiService {
           location: data.location || '',
           time: data.time || '',
           image_url: data.image_url || '',
+          registration_required: data.registration_required || false,
+          max_attendees: data.max_attendees || null,
+          attendees_count: data.attendees_count || 0,
+          is_active: data.is_active || true,
           is_featured: data.is_featured || false,
           created_at: data.created_at || new Date().toISOString(),
           updated_at: data.updated_at || new Date().toISOString()
@@ -61,6 +65,10 @@ class ApiService {
         location: eventData.location || '',
         time: eventData.time || '',
         image_url: eventData.image_url || '',
+        registration_required: eventData.registration_required || false,
+        max_attendees: eventData.max_attendees || null,
+        attendees_count: eventData.attendees_count || 0,
+        is_active: eventData.is_active || true,
         is_featured: eventData.is_featured || false,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
@@ -86,6 +94,10 @@ class ApiService {
         location: eventData.location || '',
         time: eventData.time || '',
         image_url: eventData.image_url || '',
+        registration_required: eventData.registration_required || false,
+        max_attendees: eventData.max_attendees || null,
+        attendees_count: eventData.attendees_count || 0,
+        is_active: eventData.is_active || true,
         is_featured: eventData.is_featured || false,
         created_at: eventData.created_at || new Date().toISOString(),
         updated_at: new Date().toISOString()
@@ -396,6 +408,7 @@ class ApiService {
           image_url: data.image_url || '',
           category: data.category || '',
           stock_quantity: data.stock_quantity || 0,
+          is_available: data.is_available || (data.stock_quantity > 0),
           created_at: data.created_at || new Date().toISOString(),
           updated_at: data.updated_at || new Date().toISOString()
         };
@@ -421,6 +434,7 @@ class ApiService {
         image_url: merchData.image_url || '',
         category: merchData.category || '',
         stock_quantity: merchData.stock_quantity || 0,
+        is_available: merchData.is_available || (merchData.stock_quantity > 0),
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       };
@@ -445,6 +459,7 @@ class ApiService {
         image_url: merchData.image_url || '',
         category: merchData.category || '',
         stock_quantity: merchData.stock_quantity || 0,
+        is_available: merchData.is_available || (merchData.stock_quantity > 0),
         created_at: merchData.created_at || new Date().toISOString(),
         updated_at: new Date().toISOString()
       };
@@ -475,9 +490,9 @@ class ApiService {
         return {
           id: parseInt(doc.id) || Date.now(),
           name: data.name || '',
-          position: data.position || '',
+          role: data.position || data.role || '', // Use position or role
+          image: data.image_url || data.image || '', // Use image_url or image
           bio: data.bio || '',
-          image_url: data.image_url || '',
           email: data.email || '',
           phone: data.phone || '',
           social_links: data.social_links || '{}',
@@ -501,9 +516,9 @@ class ApiService {
       return {
         id: parseInt(docRef.id) || Date.now(),
         name: staffData.name || '',
-        position: staffData.position || '',
+        role: staffData.position || staffData.role || '', // Use position or role
+        image: staffData.image_url || staffData.image || '', // Use image_url or image
         bio: staffData.bio || '',
-        image_url: staffData.image_url || '',
         email: staffData.email || '',
         phone: staffData.phone || '',
         social_links: staffData.social_links || '{}',
@@ -526,9 +541,9 @@ class ApiService {
       return {
         id: parseInt(staffData.id.toString()) || staffData.id,
         name: staffData.name || '',
-        position: staffData.position || '',
+        role: staffData.position || staffData.role || '', // Use position or role
+        image: staffData.image_url || staffData.image || '', // Use image_url or image
         bio: staffData.bio || '',
-        image_url: staffData.image_url || '',
         email: staffData.email || '',
         phone: staffData.phone || '',
         social_links: staffData.social_links || '{}',
