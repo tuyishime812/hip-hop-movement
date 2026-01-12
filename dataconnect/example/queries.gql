@@ -1,0 +1,34 @@
+mutation CreateNewModule($title: String!, $description: String!, $difficultyLevel: String!, $estimatedCompletionTime: Int, $imageUrl: String) @auth(level: USER) {
+  module_insert(data: {title: $title, description: $description, difficultyLevel: $difficultyLevel, estimatedCompletionTime: $estimatedCompletionTime, imageUrl: $imageUrl, createdAt_expr: "request.time"})
+}
+
+query ListModules @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  modules {
+    id
+    title
+    description
+    difficultyLevel
+    estimatedCompletionTime
+    imageUrl
+  }
+}
+
+mutation EnrollUserInModule($userId: UUID!, $moduleId: UUID!) @auth(level: USER) {
+  enrollment_insert(data: {userId: $userId, moduleId: $moduleId, enrolledAt_expr: "request.time", progress: 0, status: "enrolled"})
+}
+
+query GetUserEnrollments($userId: UUID!) @auth(level: USER) {
+  enrollments(where: {userId: {eq: $userId}}) {
+    moduleId
+    completedAt
+    enrolledAt
+    lastAccessedAt
+    progress
+    status
+    module {
+      title
+      description
+      difficultyLevel
+    }
+  }
+}

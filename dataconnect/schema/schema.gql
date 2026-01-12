@@ -1,0 +1,57 @@
+type User @table {
+  displayName: String!
+  email: String!
+  createdAt: Timestamp!
+  photoUrl: String
+  bio: String
+  learningGoals: String # Storing as a string for simplicity, could be a more complex type if needed
+}
+
+type Module @table {
+  title: String!
+  description: String!
+  difficultyLevel: String!
+  createdAt: Timestamp!
+  estimatedCompletionTime: Int
+  imageUrl: String
+  # prerequisiteModules: [Module] # Not supported.
+}
+
+type Lesson @table {
+  module: Module!
+  title: String!
+  content: String!
+  orderIndex: Int!
+  createdAt: Timestamp!
+  videoUrl: String
+  audioUrl: String
+}
+
+type Exercise @table {
+  lesson: Lesson!
+  type: String!
+  question: String!
+  createdAt: Timestamp!
+  options: [String] # Array of strings for multiple choice options
+  correctAnswer: String
+  hints: [String]
+}
+
+type Enrollment @table(key: ["user", "module"]) {
+  user: User!
+  module: Module!
+  enrolledAt: Timestamp!
+  progress: Int!
+  status: String!
+  lastAccessedAt: Timestamp
+  completedAt: Timestamp
+}
+
+type Achievement @table {
+  user: User!
+  name: String!
+  description: String!
+  earnedAt: Timestamp!
+  imageUrl: String
+  associatedModule: Module
+}

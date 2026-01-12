@@ -1,0 +1,66 @@
+mutation CreateDemoData @transaction @auth(level: PUBLIC, insecureReason: "This operation is for seeding data and is safe to expose to the public.") {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      displayName: "demouser1",
+      email: "demouser1@example.com",
+      createdAt: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      displayName: "demouser2",
+      email: "demouser2@example.com",
+      createdAt: "2024-01-01T00:00:00Z"
+    }
+  ])
+  module_insertMany(data: [
+    {
+      id: "650e8400-e29b-41d4-a716-446655440000",
+      title: "Demo Module 1",
+      description: "Example module 1",
+      difficultyLevel: "Beginner",
+      createdAt: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: "650e8400-e29b-41d4-a716-446655440001",
+      title: "Demo Module 2",
+      description: "Example module 2",
+      difficultyLevel: "Intermediate",
+      createdAt: "2024-01-01T00:00:00Z"
+    }
+  ])
+  lesson_insertMany(data: [
+    {
+      moduleId: "650e8400-e29b-41d4-a716-446655440000",
+      id: "750e8400-e29b-41d4-a716-446655440000",
+      title: "Demo Lesson 1",
+      content: "Example lesson content 1",
+      orderIndex: 1,
+      createdAt: "2024-01-01T00:00:00Z"
+    },
+    {
+      moduleId: "650e8400-e29b-41d4-a716-446655440001",
+      id: "750e8400-e29b-41d4-a716-446655440001",
+      title: "Demo Lesson 2",
+      content: "Example lesson content 2",
+      orderIndex: 1,
+      createdAt: "2024-01-01T00:00:00Z"
+    }
+  ])
+    enrollment_insertMany(data: [
+    {
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      moduleId: "650e8400-e29b-41d4-a716-446655440000",
+      enrolledAt: "2024-01-01T00:00:00Z",
+      progress: 50,
+      status: "In Progress"
+    },
+    {
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      moduleId: "650e8400-e29b-41d4-a716-446655440001",
+      enrolledAt: "2024-01-01T00:00:00Z",
+      progress: 75,
+      status: "Completed"
+    }
+  ])
+}

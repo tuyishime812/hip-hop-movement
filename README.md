@@ -1,10 +1,12 @@
 # Hip-Hop Foundation Website
 
-A dynamic, full-stack web application for the Hip-Hop Foundation, featuring a Next.js frontend and FastAPI backend.
+A dynamic, full-stack web application for the Hip-Hop Foundation, featuring a Next.js frontend with Firebase integration and FastAPI backend.
+
+Project Name in Firebase: hip-hop-movement-4241f
 
 ## Features
 
-- Dynamic content management through FastAPI backend
+- Dynamic content management through FastAPI backend and Firebase Firestore
 - Artist profiles and information
 - Event listings and management
 - Donation system
@@ -16,8 +18,9 @@ A dynamic, full-stack web application for the Hip-Hop Foundation, featuring a Ne
 
 - **Frontend**: Next.js 16, React 19, TypeScript
 - **Backend**: FastAPI, SQLAlchemy, SQLite
+- **Database**: Firebase Firestore (primary), SQLite (backup)
 - **Styling**: Tailwind CSS
-- **Authentication**: JWT tokens with bcrypt password hashing
+- **Authentication**: Firebase Auth and JWT tokens with bcrypt password hashing
 
 ## Project Structure
 
@@ -105,6 +108,24 @@ Backend (backend/.env):
 
 Frontend (.env.local):
 - `NEXT_PUBLIC_API_URL`: Backend API URL
+- `NEXT_PUBLIC_FIREBASE_API_KEY`: Firebase API key
+- `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`: Firebase auth domain
+- `NEXT_PUBLIC_FIREBASE_PROJECT_ID`: Firebase project ID
+- `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`: Firebase storage bucket
+- `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`: Firebase messaging sender ID
+- `NEXT_PUBLIC_FIREBASE_APP_ID`: Firebase app ID
+
+### Firebase Integration
+
+The frontend uses Firebase for real-time data storage and retrieval. The following collections are managed in Firestore:
+
+- `artists`: Information about featured artists
+- `events`: Event listings and details
+- `donations`: Donation records and information
+- `news`: News articles and updates
+- `merchandise`: Available merchandise items
+- `staff`: Staff member information
+- `contact_messages`: Messages submitted through the contact form
 
 ## API Endpoints
 

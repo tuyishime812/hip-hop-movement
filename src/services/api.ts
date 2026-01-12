@@ -1,16 +1,16 @@
 // src/services/api.ts - Firebase implementation
-import { 
-  collection, 
-  getDocs, 
-  addDoc, 
-  updateDoc, 
-  deleteDoc, 
-  doc, 
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
   query,
   orderBy,
-  where 
+  where
 } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { db, analytics } from '@/lib/firebase';
 
 class ApiService {
   // Events API
