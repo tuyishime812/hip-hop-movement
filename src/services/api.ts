@@ -1,195 +1,227 @@
-// src/services/api.ts - Frontend-only version with mock data
+// src/services/api.ts - Firebase implementation
+import { 
+  collection, 
+  getDocs, 
+  addDoc, 
+  updateDoc, 
+  deleteDoc, 
+  doc, 
+  query,
+  orderBy,
+  where 
+} from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
 class ApiService {
   // Events API
   async getEvents() {
-    // Return mock data instead of making API call
-    return [
-      {
-        id: 1,
-        title: "Hip-Hop for Humanity Festival",
-        description: "Annual charity event bringing together artists and community",
-        date: "2025-03-15T18:00:00",
-        location: "Community Center, Local City",
-        image_url: "/src/images/hiphop.jpg",
-        registration_required: true,
-        max_attendees: 500,
-        attendees_count: 245,
-        is_active: true,
-        created_at: "2024-01-01T00:00:00",
-        updated_at: "2024-01-01T00:00:00"
-      },
-      {
-        id: 2,
-        title: "Youth Hip-Hop Workshop",
-        description: "Educational workshop for young artists",
-        date: "2025-02-20T14:00:00",
-        location: "Youth Center, Local City",
-        image_url: "/src/images/hiphop_lifestyle time.jpg",
-        registration_required: false,
-        max_attendees: null,
-        attendees_count: 78,
-        is_active: true,
-        created_at: "2024-01-01T00:00:00",
-        updated_at: "2024-01-01T00:00:00"
-      }
-    ];
+    try {
+      const q = query(collection(db, 'events'), orderBy('date', 'desc'));
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+    } catch (error) {
+      console.error('Error getting events:', error);
+      return [];
+    }
   }
 
   async getEvent(id: number) {
+    // Note: In Firestore, document IDs are typically strings
+    // This function would need to be adjusted based on your actual implementation
     const events = await this.getEvents();
-    return events.find(event => event.id === id) || events[0];
+    return events.find(event => event.id == id) || null;
   }
 
   async createEvent(eventData: any) {
-    // In frontend-only mode, we just return the data as if it was created
-    return { ...eventData, id: Date.now() };
+    try {
+      const docRef = await addDoc(collection(db, 'events'), {
+        ...eventData,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      });
+      return { id: docRef.id, ...eventData };
+    } catch (error) {
+      console.error('Error creating event:', error);
+      return null;
+    }
   }
 
   async updateEvent(eventData: any) {
-    // In frontend-only mode, we just return the data as if it was updated
-    return { ...eventData, updated_at: new Date().toISOString() };
+    try {
+      const eventRef = doc(db, 'events', eventData.id.toString());
+      await updateDoc(eventRef, {
+        ...eventData,
+        updated_at: new Date().toISOString()
+      });
+      return { id: eventData.id, ...eventData };
+    } catch (error) {
+      console.error('Error updating event:', error);
+      return null;
+    }
   }
 
   async deleteEvent(id: number) {
-    // In frontend-only mode, we just return true to indicate success
-    return true;
+    try {
+      const eventRef = doc(db, 'events', id.toString());
+      await deleteDoc(eventRef);
+      return true;
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      return false;
+    }
   }
 
   // Artists API
   async getArtists() {
-    // Return mock data instead of making API call
-    return [
-      {
-        id: 1,
-        name: "DJ Khaled",
-        bio: "Legendary hip-hop producer and DJ",
-        genre: "Hip-Hop",
-        image_url: "/src/images/hiphop.jpg",
-        social_links: JSON.stringify({ instagram: "@djkhlaed", twitter: "@djkhlaed" }),
-        is_featured: true,
-        created_at: "2024-01-01T00:00:00",
-        updated_at: "2024-01-01T00:00:00"
-      },
-      {
-        id: 2,
-        name: "Eminem",
-        bio: "Pulitzer Prize-winning rapper",
-        genre: "Rap",
-        image_url: "/src/images/hiphop_time.jpg",
-        social_links: JSON.stringify({ instagram: "@eminem", twitter: "@eminem" }),
-        is_featured: true,
-        created_at: "2024-01-01T00:00:00",
-        updated_at: "2024-01-01T00:00:00"
-      },
-      {
-        id: 3,
-        name: "Kendrick Lamar",
-        bio: "Influential rapper and songwriter",
-        genre: "Hip-Hop",
-        image_url: "/src/images/hiphop_movement help young-talented designer.jpg",
-        social_links: JSON.stringify({ instagram: "@kendricklamar", twitter: "@kendricklamar" }),
-        is_featured: true,
-        created_at: "2024-01-01T00:00:00",
-        updated_at: "2024-01-01T00:00:00"
-      }
-    ];
+    try {
+      const q = query(collection(db, 'artists'), orderBy('name'));
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+    } catch (error) {
+      console.error('Error getting artists:', error);
+      return [];
+    }
   }
 
   async getArtist(id: number) {
     const artists = await this.getArtists();
-    return artists.find(artist => artist.id === id) || artists[0];
+    return artists.find(artist => artist.id == id) || null;
   }
 
   async createArtist(artistData: any) {
-    // In frontend-only mode, we just return the data as if it was created
-    return { ...artistData, id: Date.now() };
+    try {
+      const docRef = await addDoc(collection(db, 'artists'), {
+        ...artistData,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      });
+      return { id: docRef.id, ...artistData };
+    } catch (error) {
+      console.error('Error creating artist:', error);
+      return null;
+    }
+  }
+
+  async updateArtist(artistData: any) {
+    try {
+      const artistRef = doc(db, 'artists', artistData.id.toString());
+      await updateDoc(artistRef, {
+        ...artistData,
+        updated_at: new Date().toISOString()
+      });
+      return { id: artistData.id, ...artistData };
+    } catch (error) {
+      console.error('Error updating artist:', error);
+      return null;
+    }
+  }
+
+  async deleteArtist(id: number) {
+    try {
+      const artistRef = doc(db, 'artists', id.toString());
+      await deleteDoc(artistRef);
+      return true;
+    } catch (error) {
+      console.error('Error deleting artist:', error);
+      return false;
+    }
   }
 
   // Donations API
   async getDonations() {
-    // Return mock data instead of making API call
-    return [
-      {
-        id: 1,
-        amount: 50.0,
-        currency: "USD",
-        donor_name: "John Doe",
-        donor_email: "john@example.com",
-        message: "Supporting the cause!",
-        transaction_id: "txn_123456",
-        payment_method: "credit_card",
-        status: "completed",
-        donor_id: 1,
-        created_at: "2024-01-01T00:00:00"
-      },
-      {
-        id: 2,
-        amount: 25.0,
-        currency: "USD",
-        donor_name: "Jane Smith",
-        donor_email: "jane@example.com",
-        message: "Great work!",
-        transaction_id: "txn_789012",
-        payment_method: "paypal",
-        status: "completed",
-        donor_id: 2,
-        created_at: "2024-01-02T00:00:00"
-      }
-    ];
+    try {
+      const q = query(collection(db, 'donations'), orderBy('created_at', 'desc'));
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+    } catch (error) {
+      console.error('Error getting donations:', error);
+      return [];
+    }
   }
 
   async createDonation(donationData: any) {
-    // In frontend-only mode, we just return the data as if it was created
-    return { ...donationData, id: Date.now(), status: "completed", created_at: new Date().toISOString() };
+    try {
+      const docRef = await addDoc(collection(db, 'donations'), {
+        ...donationData,
+        status: 'completed',
+        created_at: new Date().toISOString()
+      });
+      return { id: docRef.id, ...donationData, status: 'completed' };
+    } catch (error) {
+      console.error('Error creating donation:', error);
+      return null;
+    }
   }
 
   async updateDonation(donationData: any) {
-    // In frontend-only mode, we just return the data as if it was updated
-    return { ...donationData, updated_at: new Date().toISOString() };
+    try {
+      const donationRef = doc(db, 'donations', donationData.id.toString());
+      await updateDoc(donationRef, {
+        ...donationData,
+        updated_at: new Date().toISOString()
+      });
+      return { id: donationData.id, ...donationData };
+    } catch (error) {
+      console.error('Error updating donation:', error);
+      return null;
+    }
   }
 
   async deleteDonation(id: number) {
-    // In frontend-only mode, we just return true to indicate success
-    return true;
+    try {
+      const donationRef = doc(db, 'donations', id.toString());
+      await deleteDoc(donationRef);
+      return true;
+    } catch (error) {
+      console.error('Error deleting donation:', error);
+      return false;
+    }
   }
 
   // Contact API
   async createContactMessage(messageData: any) {
-    // In frontend-only mode, we just return the data as if it was created
-    return { ...messageData, id: Date.now(), created_at: new Date().toISOString() };
+    try {
+      const docRef = await addDoc(collection(db, 'contact_messages'), {
+        ...messageData,
+        created_at: new Date().toISOString()
+      });
+      return { id: docRef.id, ...messageData };
+    } catch (error) {
+      console.error('Error creating contact message:', error);
+      return null;
+    }
   }
 
   // News API
   async getNews() {
-    // Return mock data instead of making API call
-    return [
-      {
-        id: 1,
-        title: "Hip-Hop Foundation Announces New Community Program",
-        content: "We're excited to announce our new program aimed at supporting young artists in underserved communities.",
-        author: "Foundation Staff",
-        image_url: "/src/images/hiphop.jpg",
-        published_at: "2024-12-15T00:00:00",
-        is_published: true,
-        created_at: "2024-12-15T00:00:00",
-        updated_at: "2024-12-15T00:00:00"
-      },
-      {
-        id: 2,
-        title: "Local Artist Receives Grant from Foundation",
-        content: "Local hip-hop artist receives funding to produce an album focused on social justice themes.",
-        author: "Foundation Staff",
-        image_url: "/src/images/hiphop_time.jpg",
-        published_at: "2024-12-10T00:00:00",
-        is_published: true,
-        created_at: "2024-12-10T00:00:00",
-        updated_at: "2024-12-10T00:00:00"
-      }
-    ];
+    try {
+      const q = query(
+        collection(db, 'news'), 
+        where('is_published', '==', true), 
+        orderBy('published_at', 'desc')
+      );
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+    } catch (error) {
+      console.error('Error getting news:', error);
+      return [];
+    }
   }
 
   async getNewsSources() {
-    // Return mock data instead of making API call
+    // Return mock data for news sources since this is typically static
     return [
       { id: 1, name: "Rolling Stone", url: "https://rollingstone.com" },
       { id: 2, name: "Pitchfork", url: "https://pitchfork.com" },
@@ -198,106 +230,121 @@ class ApiService {
   }
 
   async createNews(newsData: any) {
-    // In frontend-only mode, we just return the data as if it was created
-    return { ...newsData, id: Date.now(), created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
+    try {
+      const docRef = await addDoc(collection(db, 'news'), {
+        ...newsData,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      });
+      return { id: docRef.id, ...newsData };
+    } catch (error) {
+      console.error('Error creating news:', error);
+      return null;
+    }
   }
 
   async updateNews(newsData: any) {
-    // In frontend-only mode, we just return the data as if it was updated
-    return { ...newsData, updated_at: new Date().toISOString() };
+    try {
+      const newsRef = doc(db, 'news', newsData.id.toString());
+      await updateDoc(newsRef, {
+        ...newsData,
+        updated_at: new Date().toISOString()
+      });
+      return { id: newsData.id, ...newsData };
+    } catch (error) {
+      console.error('Error updating news:', error);
+      return null;
+    }
   }
 
   async deleteNews(id: number) {
-    // In frontend-only mode, we just return true to indicate success
-    return true;
-  }
-
-  async createMerchandise(merchData: any) {
-    // In frontend-only mode, we just return the data as if it was created
-    return { ...merchData, id: Date.now(), created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
-  }
-
-  async updateMerchandise(merchData: any) {
-    // In frontend-only mode, we just return the data as if it was updated
-    return { ...merchData, updated_at: new Date().toISOString() };
-  }
-
-  async deleteMerchandise(id: number) {
-    // In frontend-only mode, we just return true to indicate success
-    return true;
+    try {
+      const newsRef = doc(db, 'news', id.toString());
+      await deleteDoc(newsRef);
+      return true;
+    } catch (error) {
+      console.error('Error deleting news:', error);
+      return false;
+    }
   }
 
   // Merchandise API
   async getMerchandise() {
-    // Return mock data instead of making API call
-    return [
-      {
-        id: 1,
-        name: "Hip-Hop Movement Classic Tee",
-        description: "Premium cotton t-shirt with our iconic logo",
-        price: 25.00,
-        image_url: "/src/images/t shirts.png",
-        stock_quantity: 50,
-        category: "T-Shirts",
-        is_available: true,
-        created_at: "2024-01-01T00:00:00",
-        updated_at: "2024-01-01T00:00:00"
-      },
-      {
-        id: 2,
-        name: "Limited Edition Hoodie",
-        description: "Exclusive hoodie with unique design",
-        price: 50.00,
-        image_url: "/src/images/hoodies.png",
-        stock_quantity: 30,
-        category: "Hoodies",
-        is_available: true,
-        created_at: "2024-01-01T00:00:00",
-        updated_at: "2024-01-01T00:00:00"
-      },
-      {
-        id: 3,
-        name: "Hip-Hop Culture Cap",
-        description: "Adjustable cap with embroidered logo",
-        price: 18.00,
-        image_url: "/src/images/caps.png",
-        stock_quantity: 100,
-        category: "Accessories",
-        is_available: true,
-        created_at: "2024-01-01T00:00:00",
-        updated_at: "2024-01-01T00:00:00"
-      }
-    ];
+    try {
+      const q = query(collection(db, 'merchandise'), orderBy('name'));
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+    } catch (error) {
+      console.error('Error getting merchandise:', error);
+      return [];
+    }
+  }
+
+  async createMerchandise(merchData: any) {
+    try {
+      const docRef = await addDoc(collection(db, 'merchandise'), {
+        ...merchData,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      });
+      return { id: docRef.id, ...merchData };
+    } catch (error) {
+      console.error('Error creating merchandise:', error);
+      return null;
+    }
+  }
+
+  async updateMerchandise(merchData: any) {
+    try {
+      const merchRef = doc(db, 'merchandise', merchData.id.toString());
+      await updateDoc(merchRef, {
+        ...merchData,
+        updated_at: new Date().toISOString()
+      });
+      return { id: merchData.id, ...merchData };
+    } catch (error) {
+      console.error('Error updating merchandise:', error);
+      return null;
+    }
+  }
+
+  async deleteMerchandise(id: number) {
+    try {
+      const merchRef = doc(db, 'merchandise', id.toString());
+      await deleteDoc(merchRef);
+      return true;
+    } catch (error) {
+      console.error('Error deleting merchandise:', error);
+      return false;
+    }
   }
 
   // Staff API
   async getStaff() {
     try {
-      const response = await fetch('/api/staff');
-      const result = await response.json();
-      return result.success ? result.data : [];
+      const q = query(collection(db, 'staff'), orderBy('name'));
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
     } catch (error) {
-      console.error('Error fetching staff:', error);
-      // Return mock data in case of error
-      return [
-        { id: 1, name: "IKK", role: "Chairman", image: "/images/chairman.jpg", bio: "Chairman of the Hip-Hop Foundation, leading the movement with vision and purpose." },
-        { id: 2, name: "Martin Angelz", role: "Vice Chairman", image: "/images/vice_chairman martin.jpg", bio: "Vice Chairman driving the mission forward in the hip-hop community." },
-        { id: 3, name: "Tuyishime Martin", role: "IT Manager", image: "/images/IT manager.jpg", bio: "Ensuring digital innovation for the movement and technological advancement." }
-      ];
+      console.error('Error getting staff:', error);
+      return [];
     }
   }
 
   async createStaff(staffData: any) {
     try {
-      const response = await fetch('/api/staff', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(staffData),
+      const docRef = await addDoc(collection(db, 'staff'), {
+        ...staffData,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       });
-      const result = await response.json();
-      return result.success ? result.data : null;
+      return { id: docRef.id, ...staffData };
     } catch (error) {
       console.error('Error creating staff:', error);
       return null;
@@ -306,15 +353,12 @@ class ApiService {
 
   async updateStaff(staffData: any) {
     try {
-      const response = await fetch('/api/staff', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(staffData),
+      const staffRef = doc(db, 'staff', staffData.id.toString());
+      await updateDoc(staffRef, {
+        ...staffData,
+        updated_at: new Date().toISOString()
       });
-      const result = await response.json();
-      return result.success ? result.data : null;
+      return { id: staffData.id, ...staffData };
     } catch (error) {
       console.error('Error updating staff:', error);
       return null;
@@ -323,14 +367,12 @@ class ApiService {
 
   async deleteStaff(id: number) {
     try {
-      const response = await fetch(`/api/staff?id=${id}`, {
-        method: 'DELETE',
-      });
-      const result = await response.json();
-      return result.success ? result.data : null;
+      const staffRef = doc(db, 'staff', id.toString());
+      await deleteDoc(staffRef);
+      return true;
     } catch (error) {
       console.error('Error deleting staff:', error);
-      return null;
+      return false;
     }
   }
 }
