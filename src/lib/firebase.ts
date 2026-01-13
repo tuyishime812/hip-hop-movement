@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { getAnalytics } from 'firebase/analytics'; // Only import if using analytics
@@ -14,9 +14,17 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID, // Optional
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
+// Initialize Firebase only on the client side
+let app;
+let analytics;
+
+if (typeof window !== 'undefined' && getApps().length === 0) {
+  app = initializeApp(firebaseConfig);
+  analytics = getAnalytics(app);
+} else {
+  app = getApps()[0];
+  analytics = null;
+}
 
 // Initialize Firestore and Auth
 export const db = getFirestore(app);

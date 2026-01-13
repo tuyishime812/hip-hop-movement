@@ -17,6 +17,9 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 
+// Check if running on client side before using Firebase
+const isClient = typeof window !== 'undefined';
+
 /**
  * Generic function to get documents from a collection with optional query constraints
  */
@@ -24,6 +27,11 @@ export const getCollectionWithConstraints = async (
   collectionName: string,
   ...constraints: QueryConstraint[]
 ): Promise<DocumentData[]> => {
+  if (!isClient) {
+    console.warn('Firebase utilities are not available on the server side');
+    return [];
+  }
+
   try {
     const q = query(collection(db, collectionName), ...constraints);
     const querySnapshot = await getDocs(q);
@@ -44,6 +52,11 @@ export const documentExists = async (
   collectionName: string,
   documentId: string
 ): Promise<boolean> => {
+  if (!isClient) {
+    console.warn('Firebase utilities are not available on the server side');
+    return false;
+  }
+
   try {
     const docRef = doc(db, collectionName, documentId);
     const docSnap = await getDocs(query(collection(db, collectionName), where('__name__', '==', documentId)));
@@ -63,10 +76,15 @@ export const incrementField = async (
   fieldName: string,
   incrementValue: number = 1
 ): Promise<boolean> => {
+  if (!isClient) {
+    console.warn('Firebase utilities are not available on the server side');
+    return false;
+  }
+
   try {
     const docRef = doc(db, collectionName, documentId);
     const currentDoc = await getDocs(query(collection(db, collectionName), where('__name__', '==', documentId)));
-    
+
     if (!currentDoc.empty) {
       const data = currentDoc.docs[0].data();
       const currentValue = data[fieldName] || 0;
@@ -89,6 +107,11 @@ export const addDocumentWithId = async (
   collectionName: string,
   data: Record<string, any>
 ): Promise<string | null> => {
+  if (!isClient) {
+    console.warn('Firebase utilities are not available on the server side');
+    return null;
+  }
+
   try {
     const docRef = await addDoc(collection(db, collectionName), {
       ...data,
@@ -110,6 +133,11 @@ export const updateDocumentWithTimestamp = async (
   documentId: string,
   data: Record<string, any>
 ): Promise<boolean> => {
+  if (!isClient) {
+    console.warn('Firebase utilities are not available on the server side');
+    return false;
+  }
+
   try {
     const docRef = doc(db, collectionName, documentId);
     await updateDoc(docRef, {
@@ -132,14 +160,19 @@ export const batchDeleteDocuments = async (
   operator: '==' | '!=' | '<' | '<=' | '>' | '>=' | 'array-contains' | 'in' | 'array-contains-any',
   value: any
 ): Promise<number> => {
+  if (!isClient) {
+    console.warn('Firebase utilities are not available on the server side');
+    return 0;
+  }
+
   try {
     const q = query(collection(db, collectionName), where(field, operator, value));
     const querySnapshot = await getDocs(q);
-    
+
     const deletePromises = querySnapshot.docs.map(async (doc) => {
       await deleteDoc(doc.ref);
     });
-    
+
     await Promise.all(deletePromises);
     return querySnapshot.size;
   } catch (error) {
@@ -155,6 +188,11 @@ export const getDocumentById = async (
   collectionName: string,
   documentId: string
 ): Promise<DocumentData | null> => {
+  if (!isClient) {
+    console.warn('Firebase utilities are not available on the server side');
+    return null;
+  }
+
   try {
     const querySnapshot = await getDocs(query(collection(db, collectionName), where('__name__', '==', documentId)));
     if (!querySnapshot.empty) {
@@ -177,6 +215,11 @@ export const getDocumentById = async (
 export const countDocuments = async (
   collectionName: string
 ): Promise<number> => {
+  if (!isClient) {
+    console.warn('Firebase utilities are not available on the server side');
+    return 0;
+  }
+
   try {
     const querySnapshot = await getDocs(collection(db, collectionName));
     return querySnapshot.size;
@@ -194,6 +237,11 @@ export const searchDocumentsByText = async (
   textField: string,
   searchTerm: string
 ): Promise<DocumentData[]> => {
+  if (!isClient) {
+    console.warn('Firebase utilities are not available on the server side');
+    return [];
+  }
+
   try {
     // Note: Full text search is not natively supported in Firestore
     // This is a basic implementation that gets all docs and filters client-side
@@ -225,6 +273,11 @@ export const getDocumentsPaginated = async (
   limitCount: number,
   lastDoc?: any
 ): Promise<{ docs: DocumentData[], lastVisible: any }> => {
+  if (!isClient) {
+    console.warn('Firebase utilities are not available on the server side');
+    return { docs: [], lastVisible: undefined };
+  }
+
   try {
     let q = query(
       collection(db, collectionName),
