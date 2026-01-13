@@ -17,7 +17,7 @@ const rubik = Rubik({
 
 export const metadata: Metadata = {
   title: "Hip-Hop Movement Foundation",
-  description: "Hip-Hop for Humanity, From the Streets to the Future",
+  description: "Hip-Hop Foundation, Building Bridges Through Music and Community",
 };
 
 export default function RootLayout({

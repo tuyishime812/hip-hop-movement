@@ -43,7 +43,7 @@ const ReportsPage = () => {
             totalEvents: 8,
             totalAttendees: 1245,
             attendanceRate: 85.3,
-            mostPopular: 'Hip-Hop for Humanity Festival'
+            mostPopular: 'Hip-Hop Foundation Festival'
           });
         } else {
           setReportData({
@@ -74,7 +74,7 @@ const ReportsPage = () => {
       csvContent += 'Bob Johnson,200,2023-01-17\n';
     } else if (reportType === 'events') {
       csvContent = 'Event Name,Date,Attendees\n';
-      csvContent += 'Hip-Hop for Humanity Festival,2023-03-15,500\n';
+      csvContent += 'Hip-Hop Foundation Festival,2023-03-15,500\n';
       csvContent += 'Youth Workshop,2023-02-20,75\n';
     } else {
       csvContent = 'Metric,Value\n';

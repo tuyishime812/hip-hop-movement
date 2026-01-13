@@ -170,18 +170,13 @@ const HeroSection = () => {
           <div className="lg:w-1/2 mb-12 lg:mb-0 fade-in">
             <div className="text-center lg:text-left">
               <div className="flex items-center justify-center lg:justify-start mb-4">
-                <div className="inline-block px-4 py-1 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] rounded-full text-white text-sm font-medium flex items-center">
-                  <img
-                    src="/images/hiphop logo.png"
-                    alt="Hip-Hop Logo"
-                    className="w-6 h-6 mr-2 object-contain"
-                  />
-                  Hip-Hop For Humanity
+                <div className="inline-block px-4 py-1 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] rounded-full text-white text-sm font-medium">
+                  Hip-Hop Foundation
                 </div>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight tracking-tight mb-6">
                 <span className="bg-gradient-to-r from-[#3b82f6] to-[#ec4899] bg-clip-text text-transparent">Hip-Hop</span> <br />
-                <span className="text-gray-800 dark:text-slate-100">For Humanity</span>
+                <span className="text-gray-800 dark:text-slate-100">Foundation</span>
               </h1>
               <p className="text-base md:text-lg leading-relaxed text-gray-600 dark:text-slate-300 text-xl mb-8 max-w-2xl mx-auto lg:mx-0">
                 From the streets to the future. Building bridges through music, culture, and community to empower lives and transform communities.
@@ -346,7 +341,7 @@ const MissionVisionSection = () => {
               </div>
               <h3 className="text-2xl font-bold text-gray-800 dark:text-slate-100">Vision Statement</h3>
             </div>
-            <p className="text-xl italic mb-6 text-gray-800 dark:text-slate-100 font-medium">"Hip-Hop for Humanity, From the Streets to the Future"</p>
+            <p className="text-xl italic mb-6 text-gray-800 dark:text-slate-100 font-medium">"Building Bridges Through Music and Community"</p>
 
             <h4 className="text-xl font-bold mb-4 text-gray-800 dark:text-slate-100 flex items-center">
               <span className="mr-2">📜</span> Our Manifesto
@@ -786,7 +781,7 @@ const Footer = () => {
               HIP-HOP MOVEMENT
             </h3>
             <p className="text-gray-400 mb-6">
-              Hip-Hop for Humanity, From the Streets to the Future
+              Hip-Hop Foundation, Building Bridges Through Music and Community
             </p>
             <div className="flex space-x-4">
               <a href="https://www.facebook.com/ikksemosem" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#ec4899] bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300">

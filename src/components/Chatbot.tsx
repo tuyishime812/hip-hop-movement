@@ -47,12 +47,12 @@ const Chatbot = () => {
     } else if (lowerCaseMessage.includes('thank') || lowerCaseMessage.includes('grateful')) {
       return "You're wonderfully welcome! 🙌 Thank you for your interest in the Hip-Hop Movement Foundation. Together, we're crafting a legacy that builds bridges from the streets to the future!";
     } else if (lowerCaseMessage.includes('bye') || lowerCaseMessage.includes('goodbye') || lowerCaseMessage.includes('farewell') || lowerCaseMessage.includes('thanks')) {
-      return "Farewell! 👋 Thank you for engaging with the Hip-Hop Movement Foundation. Remember: Hip-Hop for Humanity, From the Streets to the Future! Peace and prosperity! ✌️";
+      return "Farewell! 👋 Thank you for engaging with the Hip-Hop Movement Foundation. Remember: Building Bridges Through Music and Community! Peace and prosperity! ✌️";
     } else {
       const responses = [
         "Thank you for your inquiry! The Hip-Hop Movement Foundation is dedicated to empowering communities through the transformative power of music and culture. Would you like to learn about our programs, upcoming events, or ways to get involved?",
         "We're passionate advocates for using hip-hop as a catalyst for positive change! Which aspect of our mission resonates most with you?",
-        "Hip-Hop for Humanity, From the Streets to the Future! Is there a particular area where I can provide more insight?",
+        "Building Bridges Through Music and Community! Is there a particular area where I can provide more insight?",
         "I'm here to provide guidance! Our programs encompass youth empowerment, artist development, community engagement, and cultural preservation. What would you like to explore?",
         "Our foundation honors hip-hop's rich heritage while pioneering its future. How else may I assist you today?",
         "Wonderful question! We believe hip-hop culture has the power to transform lives and unite diverse communities. What else would you like to discover?"
