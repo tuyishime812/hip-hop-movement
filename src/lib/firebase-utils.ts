@@ -204,11 +204,12 @@ export const searchDocumentsByText = async (
         id: doc.id,
         ...doc.data()
       }))
-      .filter(doc => 
-        doc[textField] && 
-        doc[textField].toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    
+      .filter(doc => {
+        const value = doc[textField as keyof typeof doc];
+        return value && typeof value === 'string' &&
+          value.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+
     return results;
   } catch (error) {
     console.error(`Error searching documents in ${collectionName}:`, error);

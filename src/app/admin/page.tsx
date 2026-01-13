@@ -85,7 +85,6 @@ const AdminDashboard = () => {
       }
     };
 
-    // Initialize active tab based on current hash
     handleHashChange();
 
     window.addEventListener('hashchange', handleHashChange);
