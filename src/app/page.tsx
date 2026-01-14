@@ -95,13 +95,6 @@ const Navbar = () => {
               <span className="relative z-10">Support Us</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
             </Link>
-            <Link
-              href="/admin"
-              className="hiphop-btn hiphop-btn-secondary relative group overflow-hidden"
-            >
-              <span className="relative z-10">Admin</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-            </Link>
           </div>
         </div>
       </div>
@@ -124,14 +117,6 @@ const Navbar = () => {
             >
               <span className="relative z-10">Support Us</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-            </Link>
-            <Link
-              href="/admin"
-              className="hiphop-btn hiphop-btn-secondary w-full text-center mt-2 relative group overflow-hidden"
-              onClick={() => setIsOpen(false)}
-            >
-              <span className="relative z-10">Admin</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-[#8b5cf6] to-[#ec4899] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
             </Link>
           </div>
           <div className="pt-4 mt-4 border-t border-gray-200 dark:border-slate-700 flex items-center justify-center space-x-4">
@@ -906,6 +891,9 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
           <p>&copy; {new Date().getFullYear()} Hip-Hop Movement Foundation. All rights reserved.</p>
+          <p className="mt-2">
+            <a href="/admin" className="text-gray-400 hover:text-white transition-colors">Admin Access</a>
+          </p>
         </div>
       </div>
     </footer>
