@@ -35,7 +35,7 @@ const FoundationLeadersPage = () => {
             id: 3,
             name: "Tuyishime Martin",
             role: "IT Manager",
-            image: "/images/IT manager.jpg",
+            image: "/images/team_management.jpg",
             bio: "Ensuring digital innovation for the movement and technological advancement."
           },
           {
@@ -47,7 +47,7 @@ const FoundationLeadersPage = () => {
           },
           {
             id: 5,
-            name: "Alinafe Bvumber",
+            name: "Alinafe Bvumbwe",
             role: "Coordinator",
             image: "/images/Alinafe Bvumbwe.jpg",
             bio: "Coordinator managing day-to-day operations and ensuring smooth execution of foundation activities."
@@ -77,7 +77,7 @@ const FoundationLeadersPage = () => {
             id: 9,
             name: "Manuel Seleman",
             role: "Head of Security",
-            image: "/images/Manuel Security.jpg",
+            image: "/images/manuel security.jpg",
             bio: "Head of Security ensuring the safety and security of all foundation events and operations."
           }
         ]);
