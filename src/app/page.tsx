@@ -96,7 +96,7 @@ const Navbar = () => {
               <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
             </Link>
             <Link
-              href="/admin/login"
+              href="/admin"
               className="hiphop-btn hiphop-btn-secondary relative group overflow-hidden"
             >
               <span className="relative z-10">Admin</span>
@@ -126,7 +126,7 @@ const Navbar = () => {
               <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
             </Link>
             <Link
-              href="/admin/login"
+              href="/admin"
               className="hiphop-btn hiphop-btn-secondary w-full text-center mt-2 relative group overflow-hidden"
               onClick={() => setIsOpen(false)}
             >
