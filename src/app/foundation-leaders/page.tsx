@@ -13,11 +13,76 @@ const FoundationLeadersPage = () => {
     const fetchLeaders = async () => {
       try {
         const staff = await apiService.getStaff();
-        // Only set leaders if we got valid data from the API
+        // Set leaders regardless of whether we got data from the API or not
         if (staff && staff.length > 0) {
           setLeaders(staff);
         } else {
-          throw new Error('No staff data received');
+          // Use fallback data if no staff data received
+          setLeaders([
+            {
+              id: 1,
+              name: "IKK",
+              role: "Chairman",
+              image: "/images/chairman.jpg",
+              bio: "Chairman of the Hip-Hop Foundation, leading the movement with vision and purpose."
+            },
+            {
+              id: 2,
+              name: "Martin Angelz",
+              role: "Vice Chairman",
+              image: "/images/vice_chairman martin.jpg",
+              bio: "Vice Chairman driving the mission forward in the hip-hop community."
+            },
+            {
+              id: 3,
+              name: "Tuyishime Martin",
+              role: "IT Manager",
+              image: "/images/team_management.jpg",
+              bio: "Ensuring digital innovation for the movement and technological advancement."
+            },
+            {
+              id: 4,
+              name: "Team Management",
+              role: "Operations",
+              image: "/images/team_management.jpg",
+              bio: "Managing team operations and coordination for maximum impact."
+            },
+            {
+              id: 5,
+              name: "Alinafe Bvumbwe",
+              role: "Coordinator",
+              image: "/images/Alinafe Bvumbwe.jpg",
+              bio: "Coordinator managing day-to-day operations and ensuring smooth execution of foundation activities."
+            },
+            {
+              id: 6,
+              name: "Leah Perekamoyo",
+              role: "Head of Finance",
+              image: "/images/Leah Perekamoyo.jpg",
+              bio: "Head of Finance overseeing financial operations and ensuring sustainable growth of the foundation."
+            },
+            {
+              id: 7,
+              name: "Henderson Paul",
+              role: "Spokesperson",
+              image: "/images/Henderson Paul.png",
+              bio: "Spokesperson representing the foundation and communicating our mission to the public."
+            },
+            {
+              id: 8,
+              name: "Romeo Damaso",
+              role: "Creative Director",
+              image: "/images/Romeo Damaso.jpg",
+              bio: "Creative Director leading artistic initiatives and creative projects for the foundation."
+            },
+            {
+              id: 9,
+              name: "Manuel Seleman",
+              role: "Head of Security",
+              image: "/images/manuel security.jpg",
+              bio: "Head of Security ensuring the safety and security of all foundation events and operations."
+            }
+          ]);
         }
       } catch (error) {
         console.error('Error fetching leaders:', error);
