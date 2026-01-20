@@ -12,6 +12,7 @@ import YoungTalentGallery from '@/components/YoungTalentGallery';
 import SupportElderWomenGallery from '@/components/SupportElderWomenGallery';
 import LeadersSlider from '@/components/LeadersSlider';
 import FoundationLeadersSlider from '@/components/FoundationLeadersSlider';
+import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 import { useTheme } from '@/components/ThemeProvider';
 import { apiService } from '@/services/api';
 
@@ -1019,6 +1020,11 @@ export default function HomePage() {
         }}
       />
       <Chatbot />
+      <PaymentOptionsModal
+        isOpen={showPaymentOptions}
+        onClose={() => setShowPaymentOptions(false)}
+        onOptionSelect={handlePaymentOptionSelect}
+      />
     </div>
   );
 }

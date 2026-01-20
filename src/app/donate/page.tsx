@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 
 const DonationPage = () => {
   const [donationAmount, setDonationAmount] = useState(25);
@@ -206,6 +207,12 @@ const DonationPage = () => {
               <p className="text-center text-gray-500 text-sm mt-4">
                 Choose your preferred payment method to support our mission.
               </p>
+
+              <PaymentOptionsModal
+                isOpen={showPaymentOptions}
+                onClose={() => setShowPaymentOptions(false)}
+                onOptionSelect={handlePaymentOptionSelect}
+              />
             </div>
             
             {/* Impact Information */}

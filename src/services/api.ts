@@ -1,10 +1,17 @@
 // src/services/api.ts - Supabase implementation
-import { supabase } from '@/lib/supabase';
+// @ts-nocheck
+import { getSupabaseClient } from '@/lib/supabase';
 
 class ApiService {
   // Events API
   async getEvents() {
     try {
+      const supabase = getSupabaseClient();
+      if (!supabase) {
+        console.error('Supabase client not available');
+        return [];
+      }
+
       const { data, error } = await supabase
         .from('events')
         .select('*')
@@ -15,7 +22,7 @@ class ApiService {
         return [];
       }
 
-      return data.map(event => ({
+      return data.map((event: any) => ({
         id: event.id,
         title: event.title || '',
         description: event.description || '',

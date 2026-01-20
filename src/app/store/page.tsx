@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 
 const StorePage = () => {
   const [cart, setCart] = useState<any[]>([]);
@@ -229,6 +230,12 @@ const StorePage = () => {
             </a>
           </div>
         </div>
+
+        <PaymentOptionsModal
+          isOpen={showPaymentOptions}
+          onClose={() => setShowPaymentOptions(false)}
+          onOptionSelect={handlePaymentOptionSelect}
+        />
       </div>
     </div>
   );

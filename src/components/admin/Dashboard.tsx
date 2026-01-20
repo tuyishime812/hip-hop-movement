@@ -42,7 +42,7 @@ const Dashboard = () => {
         const news = await apiService.getNews();
 
         // Calculate total donations amount
-        const totalDonationsAmount = donations.reduce((sum, donation) => sum + donation.amount, 0);
+        const totalDonationsAmount = donations.reduce((sum: number, donation: any) => sum + donation.amount, 0);
 
         setStats({
           totalStaff: staffCount,
@@ -56,7 +56,7 @@ const Dashboard = () => {
 
         // Get recent donations and events
         setRecentDonations(donations.slice(0, 5));
-        setRecentEvents(events.slice(0, 5).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
+        setRecentEvents(events.slice(0, 5).sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime()));
       } catch (error) {
         console.error('Error loading dashboard data:', error);
       } finally {
