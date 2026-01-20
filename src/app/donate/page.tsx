@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 
 const DonationPage = () => {
   const [donationAmount, setDonationAmount] = useState(25);
@@ -23,10 +22,23 @@ const DonationPage = () => {
 
     if (option === 'bank-transfer') {
       // Copy the bank account number to clipboard and show success message
-      navigator.clipboard.writeText('1013918917');
-      alert('National Bank Account Number (1013918917) copied to clipboard! Please make your donation using this account.');
+      if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        navigator.clipboard.writeText('1013918917');
+        alert('National Bank Account Number (1013918917) copied to clipboard! Please make your donation using this account.');
+      } else {
+        // Fallback for copying to clipboard
+        const el = document.createElement('textarea');
+        el.value = '1013918917';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        alert('National Bank Account Number (1013918917) copied to clipboard! Please make your donation using this account.');
+      }
     } else if (option === 'contact-us') {
-      window.open('https://wa.me/265881434700', '_blank');
+      if (typeof window !== 'undefined') {
+        window.open('https://wa.me/265881434700', '_blank');
+      }
     }
   };
 
@@ -194,12 +206,6 @@ const DonationPage = () => {
               <p className="text-center text-gray-500 text-sm mt-4">
                 Choose your preferred payment method to support our mission.
               </p>
-
-              <PaymentOptionsModal
-                isOpen={showPaymentOptions}
-                onClose={() => setShowPaymentOptions(false)}
-                onOptionSelect={handlePaymentOptionSelect}
-              />
             </div>
             
             {/* Impact Information */}

@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 
 const StorePage = () => {
   const [cart, setCart] = useState<any[]>([]);
@@ -91,10 +90,23 @@ const StorePage = () => {
 
     if (option === 'bank-transfer') {
       // Copy the bank account number to clipboard and show success message
-      navigator.clipboard.writeText('1013918917');
-      alert('National Bank Account Number (1013918917) copied to clipboard! Please make your payment using this account.');
+      if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        navigator.clipboard.writeText('1013918917');
+        alert('National Bank Account Number (1013918917) copied to clipboard! Please make your payment using this account.');
+      } else {
+        // Fallback for copying to clipboard
+        const el = document.createElement('textarea');
+        el.value = '1013918917';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        alert('National Bank Account Number (1013918917) copied to clipboard! Please make your payment using this account.');
+      }
     } else if (option === 'contact-us') {
-      window.open('https://wa.me/265881434700', '_blank');
+      if (typeof window !== 'undefined') {
+        window.open('https://wa.me/265881434700', '_blank');
+      }
     }
   };
 
@@ -217,12 +229,6 @@ const StorePage = () => {
             </a>
           </div>
         </div>
-
-        <PaymentOptionsModal
-          isOpen={showPaymentOptions}
-          onClose={() => setShowPaymentOptions(false)}
-          onOptionSelect={handlePaymentOptionSelect}
-        />
       </div>
     </div>
   );

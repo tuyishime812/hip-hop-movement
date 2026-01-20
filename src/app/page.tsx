@@ -12,7 +12,6 @@ import YoungTalentGallery from '@/components/YoungTalentGallery';
 import SupportElderWomenGallery from '@/components/SupportElderWomenGallery';
 import LeadersSlider from '@/components/LeadersSlider';
 import FoundationLeadersSlider from '@/components/FoundationLeadersSlider';
-import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 import { useTheme } from '@/components/ThemeProvider';
 import { apiService } from '@/services/api';
 
@@ -22,7 +21,7 @@ interface NavbarProps {
 }
 
 // Components
-const Navbar: React.FC<NavbarProps> = ({ onDonateClick, onShopClick }) => {
+const Navbar = ({ onDonateClick, onShopClick }: NavbarProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const { theme, toggleTheme } = useTheme();
 
@@ -435,7 +434,7 @@ interface CTASectionProps {
   onShopClick: () => void;
 }
 
-const CTASection: React.FC<CTASectionProps> = ({ onDonateClick, onShopClick }) => {
+const CTASection = ({ onDonateClick, onShopClick }: CTASectionProps) => {
   return (
     <section id="donate" className="section-padding bg-gradient-to-r from-[#ec4899] to-[#0ea5e9] text-white">
       <div className="container mx-auto px-4">
@@ -554,7 +553,7 @@ interface FoundationStoreSectionProps {
   onDonateClick: () => void;
 }
 
-const FoundationStoreSection: React.FC<FoundationStoreSectionProps> = ({ onShopClick, onDonateClick }) => {
+const FoundationStoreSection = ({ onShopClick, onDonateClick }: FoundationStoreSectionProps) => {
   const merchandise = [
     {
       id: 1,
@@ -759,7 +758,7 @@ interface FooterProps {
   onDonateClick: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ onShopClick, onDonateClick }) => {
+const Footer = ({ onShopClick, onDonateClick }: FooterProps) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -945,10 +944,23 @@ export default function HomePage() {
 
     if (option === 'bank-transfer') {
       // Copy the bank account number to clipboard and show success message
-      navigator.clipboard.writeText('1013918917');
-      alert('National Bank Account Number (1013918917) copied to clipboard! Please make your payment using this account.');
+      if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        navigator.clipboard.writeText('1013918917');
+        alert('National Bank Account Number (1013918917) copied to clipboard! Please make your donation using this account.');
+      } else {
+        // Fallback for copying to clipboard
+        const el = document.createElement('textarea');
+        el.value = '1013918917';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        alert('National Bank Account Number (1013918917) copied to clipboard! Please make your donation using this account.');
+      }
     } else if (option === 'contact-us') {
-      window.open('https://wa.me/265881434700', '_blank');
+      if (typeof window !== 'undefined') {
+        window.open('https://wa.me/265881434700', '_blank');
+      }
     }
   };
 
@@ -1007,11 +1019,6 @@ export default function HomePage() {
         }}
       />
       <Chatbot />
-      <PaymentOptionsModal
-        isOpen={showPaymentOptions}
-        onClose={() => setShowPaymentOptions(false)}
-        onOptionSelect={handlePaymentOptionSelect}
-      />
     </div>
   );
 }
