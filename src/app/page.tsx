@@ -12,11 +12,17 @@ import YoungTalentGallery from '@/components/YoungTalentGallery';
 import SupportElderWomenGallery from '@/components/SupportElderWomenGallery';
 import LeadersSlider from '@/components/LeadersSlider';
 import FoundationLeadersSlider from '@/components/FoundationLeadersSlider';
+import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 import { useTheme } from '@/components/ThemeProvider';
 import { apiService } from '@/services/api';
 
+interface NavbarProps {
+  onDonateClick: () => void;
+  onShopClick: () => void;
+}
+
 // Components
-const Navbar = () => {
+const Navbar: React.FC<NavbarProps> = ({ onDonateClick, onShopClick }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const { theme, toggleTheme } = useTheme();
 
@@ -59,11 +65,14 @@ const Navbar = () => {
             Gallery
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] transition-all duration-300 group-hover:w-full"></span>
           </Link>
-          
-          <a href="https://wa.me/265881434700" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-all duration-300 relative group dark:text-slate-200 dark:hover:text-[#93c5fd]">
+
+          <button
+            onClick={onShopClick}
+            className="font-medium text-gray-700 hover:text-[#3b82f6] transition-all duration-300 relative group dark:text-slate-200 dark:hover:text-[#93c5fd]"
+          >
             Shop
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] transition-all duration-300 group-hover:w-full"></span>
-          </a>
+          </button>
           <Link href="#contact" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-all duration-300 relative group dark:text-slate-200 dark:hover:text-[#93c5fd]">
             Contact
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] transition-all duration-300 group-hover:w-full"></span>
@@ -89,13 +98,13 @@ const Navbar = () => {
           </button>
           <NotificationSystem />
           <div className={`hidden md:flex items-center space-x-4 ${isOpen ? 'block' : 'hidden'} mt-4 md:mt-0`}>
-            <Link
-              href="#donate"
+            <button
+              onClick={onDonateClick}
               className="hiphop-btn hiphop-btn-primary relative group overflow-hidden"
             >
               <span className="relative z-10">Support Us</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-            </Link>
+            </button>
           </div>
         </div>
       </div>
@@ -109,16 +118,26 @@ const Navbar = () => {
             <Link href="/foundation-leaders" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-colors dark:text-slate-200 dark:hover:text-[#93c5fd] py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800" onClick={() => setIsOpen(false)}>Foundation Leaders</Link>
             <Link href="/gallery" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-colors dark:text-slate-200 dark:hover:text-[#93c5fd] py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800" onClick={() => setIsOpen(false)}>Gallery</Link>
             
-            <a href="https://wa.me/265881434700" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-colors dark:text-slate-200 dark:hover:text-[#93c5fd] py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800" onClick={() => setIsOpen(false)}>Shop</a>
+            <button
+              onClick={() => {
+                onShopClick();
+                setIsOpen(false);
+              }}
+              className="font-medium text-gray-700 hover:text-[#3b82f6] transition-colors dark:text-slate-200 dark:hover:text-[#93c5fd] py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
+            >
+              Shop
+            </button>
             <Link href="#contact" className="font-medium text-gray-700 hover:text-[#3b82f6] transition-colors dark:text-slate-200 dark:hover:text-[#93c5fd] py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800" onClick={() => setIsOpen(false)}>Contact</Link>
-            <Link
-              href="#donate"
+            <button
+              onClick={() => {
+                onDonateClick();
+                setIsOpen(false);
+              }}
               className="hiphop-btn hiphop-btn-primary w-full text-center mt-2 relative group overflow-hidden"
-              onClick={() => setIsOpen(false)}
             >
               <span className="relative z-10">Support Us</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-            </Link>
+            </button>
           </div>
           <div className="pt-4 mt-4 border-t border-gray-200 dark:border-slate-700 flex items-center justify-center space-x-4">
             <button
@@ -411,7 +430,12 @@ const LeadersSection = () => {
   );
 };
 
-const CTASection = () => {
+interface CTASectionProps {
+  onDonateClick: () => void;
+  onShopClick: () => void;
+}
+
+const CTASection: React.FC<CTASectionProps> = ({ onDonateClick, onShopClick }) => {
   return (
     <section id="donate" className="section-padding bg-gradient-to-r from-[#ec4899] to-[#0ea5e9] text-white">
       <div className="container mx-auto px-4">
@@ -426,14 +450,20 @@ const CTASection = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-center gap-6">
-          <a href="https://wa.me/265881434700" target="_blank" rel="noopener noreferrer" className="hiphop-btn bg-white text-[#ec4899] hover:bg-gray-100 relative overflow-hidden group px-8 py-4 text-lg font-medium">
+          <button
+            onClick={onDonateClick}
+            className="hiphop-btn bg-white text-[#ec4899] hover:bg-gray-100 relative overflow-hidden group px-8 py-4 text-lg font-medium"
+          >
             <span className="relative z-10">Donate Now</span>
             <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100"></span>
-          </a>
-          <a href="https://wa.me/265881434700" target="_blank" rel="noopener noreferrer" className="hiphop-btn bg-transparent border-2 border-white hover:bg-white/10 relative overflow-hidden group px-8 py-4 text-lg font-medium">
+          </button>
+          <button
+            onClick={onShopClick}
+            className="hiphop-btn bg-transparent border-2 border-white hover:bg-white/10 relative overflow-hidden group px-8 py-4 text-lg font-medium"
+          >
             <span className="relative z-10">Shop Merchandise</span>
             <span className="absolute inset-0 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100 opacity-20"></span>
-          </a>
+          </button>
         </div>
       </div>
     </section>
@@ -519,7 +549,12 @@ const FoundationLeadersSection = () => {
   );
 };
 
-const FoundationStoreSection = () => {
+interface FoundationStoreSectionProps {
+  onShopClick: () => void;
+  onDonateClick: () => void;
+}
+
+const FoundationStoreSection: React.FC<FoundationStoreSectionProps> = ({ onShopClick, onDonateClick }) => {
   const merchandise = [
     {
       id: 1,
@@ -590,15 +625,13 @@ const FoundationStoreSection = () => {
                   <span className="text-xs px-3 py-1 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] text-white rounded-full">
                     In Stock
                   </span>
-                  <a
-                    href="https://wa.me/265881434700"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={onShopClick}
                     className="bg-gradient-to-r from-[#3b82f6] to-[#ec4899] text-white px-4 py-2 rounded-lg text-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden group/btn"
                   >
                     <span className="relative z-10">Shop Now</span>
                     <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-500 group-hover/btn:scale-x-100"></span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -637,24 +670,20 @@ const FoundationStoreSection = () => {
             Support our mission by purchasing our merchandise or making a donation to our cause.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a
-              href="https://wa.me/265881434700"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={onShopClick}
               className="hiphop-btn bg-white text-[#ec4899] hover:bg-gray-100 relative overflow-hidden group px-6 py-3"
             >
               <span className="relative z-10">Shop All Merchandise</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#ec4899] to-[#3b82f6] transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100"></span>
-            </a>
-            <a
-              href="https://wa.me/265881434700"
-              target="_blank"
-              rel="noopener noreferrer"
+            </button>
+            <button
+              onClick={onDonateClick}
               className="hiphop-btn bg-transparent border-2 border-white hover:bg-white/10 relative overflow-hidden group px-6 py-3"
             >
               <span className="relative z-10">Make a Donation</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#3b82f6] to-[#ec4899] transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100 opacity-20"></span>
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -725,7 +754,12 @@ const NewsletterSection = () => {
   );
 };
 
-const Footer = () => {
+interface FooterProps {
+  onShopClick: () => void;
+  onDonateClick: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onShopClick, onDonateClick }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -800,10 +834,10 @@ const Footer = () => {
                 <span className="mr-2 group-hover:translate-x-1 transition-transform duration-300">→</span> Our Mission</a></li>
               <li><a href="/foundation-leaders" className="text-gray-400 hover:text-[#ec4899] transition-colors duration-300 flex items-center group">
                 <span className="mr-2 group-hover:translate-x-1 transition-transform duration-300">→</span> Foundation Leaders</a></li>
-              <li><a href="https://wa.me/265881434700" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#ec4899] transition-colors duration-300 flex items-center group">
-                <span className="mr-2 group-hover:translate-x-1 transition-transform duration-300">→</span> Shop</a></li>
-              <li><a href="#donate" className="text-gray-400 hover:text-[#ec4899] transition-colors duration-300 flex items-center group">
-                <span className="mr-2 group-hover:translate-x-1 transition-transform duration-300">→</span> Donate</a></li>
+              <li><button onClick={onShopClick} className="text-gray-400 hover:text-[#ec4899] transition-colors duration-300 flex items-center group">
+                <span className="mr-2 group-hover:translate-x-1 transition-transform duration-300">→</span> Shop</button></li>
+              <li><button onClick={onDonateClick} className="text-gray-400 hover:text-[#ec4899] transition-colors duration-300 flex items-center group">
+                <span className="mr-2 group-hover:translate-x-1 transition-transform duration-300">→</span> Donate</button></li>
             </ul>
           </div>
 
@@ -903,14 +937,47 @@ const Footer = () => {
 
 
 export default function HomePage() {
+  const [showPaymentOptions, setShowPaymentOptions] = useState(false);
+  const [currentAction, setCurrentAction] = useState<'donate' | 'shop'>('donate');
+
+  const handlePaymentOptionSelect = (option: 'bank-transfer' | 'contact-us') => {
+    setShowPaymentOptions(false);
+
+    if (option === 'bank-transfer') {
+      // Copy the bank account number to clipboard and show success message
+      navigator.clipboard.writeText('1013918917');
+      alert('National Bank Account Number (1013918917) copied to clipboard! Please make your payment using this account.');
+    } else if (option === 'contact-us') {
+      window.open('https://wa.me/265881434700', '_blank');
+    }
+  };
+
   return (
     <div className="min-h-screen">
-      <Navbar />
+      <Navbar
+        onDonateClick={() => {
+          setCurrentAction('donate');
+          setShowPaymentOptions(true);
+        }}
+        onShopClick={() => {
+          setCurrentAction('shop');
+          setShowPaymentOptions(true);
+        }}
+      />
       <HeroSection />
       <AboutSection />
       <MissionVisionSection />
       <FoundationLeadersSlider />
-      <FoundationStoreSection />
+      <FoundationStoreSection
+        onShopClick={() => {
+          setCurrentAction('shop');
+          setShowPaymentOptions(true);
+        }}
+        onDonateClick={() => {
+          setCurrentAction('donate');
+          setShowPaymentOptions(true);
+        }}
+      />
       <DonationGallery />
       <ArtistSupportGallery />
       <ArtsSupportGallery />
@@ -918,10 +985,33 @@ export default function HomePage() {
       <YoungTalentGallery />
       <SupportElderWomenGallery />
       <div className="section-divider-wave"></div>
-      <CTASection />
+      <CTASection
+        onDonateClick={() => {
+          setCurrentAction('donate');
+          setShowPaymentOptions(true);
+        }}
+        onShopClick={() => {
+          setCurrentAction('shop');
+          setShowPaymentOptions(true);
+        }}
+      />
       <NewsletterSection />
-      <Footer />
+      <Footer
+        onShopClick={() => {
+          setCurrentAction('shop');
+          setShowPaymentOptions(true);
+        }}
+        onDonateClick={() => {
+          setCurrentAction('donate');
+          setShowPaymentOptions(true);
+        }}
+      />
       <Chatbot />
+      <PaymentOptionsModal
+        isOpen={showPaymentOptions}
+        onClose={() => setShowPaymentOptions(false)}
+        onOptionSelect={handlePaymentOptionSelect}
+      />
     </div>
   );
 }

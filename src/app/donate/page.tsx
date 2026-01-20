@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 
 const DonationPage = () => {
   const [donationAmount, setDonationAmount] = useState(25);
@@ -9,22 +10,24 @@ const DonationPage = () => {
   const [donationType, setDonationType] = useState('one-time');
   const [isProcessing, setIsProcessing] = useState(false);
   const [donationComplete, setDonationComplete] = useState(false);
+  const [showPaymentOptions, setShowPaymentOptions] = useState(false);
 
   const presetAmounts = [10, 25, 50, 100, 250];
 
   const handleDonation = () => {
-    setIsProcessing(true);
-    
-    // Simulate processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      setDonationComplete(true);
-      
-      // Reset after 5 seconds
-      setTimeout(() => {
-        setDonationComplete(false);
-      }, 5000);
-    }, 2000);
+    setShowPaymentOptions(true);
+  };
+
+  const handlePaymentOptionSelect = (option: 'bank-transfer' | 'contact-us') => {
+    setShowPaymentOptions(false);
+
+    if (option === 'bank-transfer') {
+      // Copy the bank account number to clipboard and show success message
+      navigator.clipboard.writeText('1013918917');
+      alert('National Bank Account Number (1013918917) copied to clipboard! Please make your donation using this account.');
+    } else if (option === 'contact-us') {
+      window.open('https://wa.me/265881434700', '_blank');
+    }
   };
 
   return (
@@ -187,10 +190,16 @@ const DonationPage = () => {
               >
                 {isProcessing ? 'Processing...' : `Donate $${donationAmount}`}
               </button>
-              
+
               <p className="text-center text-gray-500 text-sm mt-4">
-                Your donation is secure and processed through our payment partner.
+                Choose your preferred payment method to support our mission.
               </p>
+
+              <PaymentOptionsModal
+                isOpen={showPaymentOptions}
+                onClose={() => setShowPaymentOptions(false)}
+                onOptionSelect={handlePaymentOptionSelect}
+              />
             </div>
             
             {/* Impact Information */}

@@ -2,10 +2,13 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import PaymentOptionsModal from '@/components/PaymentOptionsModal';
 
 const StorePage = () => {
   const [cart, setCart] = useState<any[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<number | null>(null);
+  const [showPaymentOptions, setShowPaymentOptions] = useState(false);
+  const [currentAction, setCurrentAction] = useState<'checkout' | 'shop'>('checkout');
 
   // Sample product data
   const products = [
@@ -73,6 +76,28 @@ const StorePage = () => {
 
   const cartTotal = cart.reduce((total, item) => total + item.price, 0);
 
+  const handleCheckout = () => {
+    setCurrentAction('checkout');
+    setShowPaymentOptions(true);
+  };
+
+  const handleShopNow = () => {
+    setCurrentAction('shop');
+    setShowPaymentOptions(true);
+  };
+
+  const handlePaymentOptionSelect = (option: 'bank-transfer' | 'contact-us') => {
+    setShowPaymentOptions(false);
+
+    if (option === 'bank-transfer') {
+      // Copy the bank account number to clipboard and show success message
+      navigator.clipboard.writeText('1013918917');
+      alert('National Bank Account Number (1013918917) copied to clipboard! Please make your payment using this account.');
+    } else if (option === 'contact-us') {
+      window.open('https://wa.me/265881434700', '_blank');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 pt-24 pb-16">
       <div className="container mx-auto px-4">
@@ -96,14 +121,12 @@ const StorePage = () => {
               <button className="text-sm text-blue-600 hover:underline">View Cart</button>
             </div>
           </div>
-          <a
-            href="https://wa.me/265881434700"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={handleCheckout}
             className="w-full mt-4 hiphop-btn hiphop-btn-primary"
           >
             Checkout
-          </a>
+          </button>
         </div>
 
         {/* Products Grid */}
@@ -168,14 +191,12 @@ const StorePage = () => {
                   </div>
                 </div>
                 
-                <a
-                  href="https://wa.me/265881434700"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={handleShopNow}
                   className="w-full hiphop-btn hiphop-btn-primary"
                 >
                   Shop Now
-                </a>
+                </button>
               </div>
             </div>
           ))}
@@ -196,6 +217,12 @@ const StorePage = () => {
             </a>
           </div>
         </div>
+
+        <PaymentOptionsModal
+          isOpen={showPaymentOptions}
+          onClose={() => setShowPaymentOptions(false)}
+          onOptionSelect={handlePaymentOptionSelect}
+        />
       </div>
     </div>
   );
