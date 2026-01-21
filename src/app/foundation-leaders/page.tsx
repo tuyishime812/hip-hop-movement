@@ -26,32 +26,33 @@ const FoundationLeadersPage = () => {
             },
             {
               id: 2,
-              name: "Martin Angelz",
+              name: "Martin Anjelz",
               role: "Vice Chairman",
               image: "/images/vice_chairman martin.jpg",
               bio: "Vice Chairman driving the mission forward in the hip-hop community."
             },
             {
               id: 3,
+              name: "Leah Perekamoyo",
+              role: "Head of Finance",
+              image: "/images/Leah Perekamoyo.jpg",
+              bio: "Head of Finance overseeing financial operations and ensuring sustainable growth of the foundation."
+            },
+            {
+              id: 4,
               name: "Tuyishime Martin",
               role: "IT Manager",
               image: "/images/IT manager.jpg",
               bio: "Ensuring digital innovation for the movement and technological advancement."
             },
             {
-              id: 4,
+              id: 5,
               name: "Alinafe Bvumbwe",
               role: "Coordinator",
               image: "/images/Alinafe Bvumbwe.jpg",
               bio: "Coordinator managing day-to-day operations and ensuring smooth execution of foundation activities."
             },
-            {
-              id: 5,
-              name: "Leah Perekamoyo",
-              role: "Head of Finance",
-              image: "/images/Leah Perekamoyo.jpg",
-              bio: "Head of Finance overseeing financial operations and ensuring sustainable growth of the foundation."
-            },
+            
             {
               id: 6,
               name: "Henderson Paul",
